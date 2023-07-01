@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Hacker_Rank">
+      <UniqueIdentifier>{9896b4bd-f6aa-4372-8a9c-17a43dc8ad2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hacker_Rank\#Task_Classes">
+      <UniqueIdentifier>{ce94a1af-4bb9-4eb0-90c2-89a427c50bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hacker_Rank\#Task_Classes\Template_Specialization">
+      <UniqueIdentifier>{d4c85ccf-4707-4575-a748-d01793a3ecdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hacker_Rank\#Task_Classes\Complex">
+      <UniqueIdentifier>{a5f18585-3e6d-4a7a-b133-1a803c8f353f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="#Source Files\Config">
+      <UniqueIdentifier>{bda0408e-07f1-4b3c-9420-f5d187eee331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Source Files\Main">
+      <UniqueIdentifier>{5b2266b1-5e44-4e3c-bb9d-4f387675ba0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Source Files\Tools">
+      <UniqueIdentifier>{2ff0ef06-4c2e-457d-80eb-24279213d140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials">
+      <UniqueIdentifier>{39812f23-ec82-4936-9d49-5a3acec3858f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Bicycle">
+      <UniqueIdentifier>{d49a1838-56fc-469a-9e55-bbb981a4f2bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Image">
+      <UniqueIdentifier>{a62d24a6-390e-4b01-9202-c6281f073f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Living_Being">
+      <UniqueIdentifier>{b948ad88-0f79-4b93-9c86-1a9ad0bbe06f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Messenger">
+      <UniqueIdentifier>{49b9ffdc-fd5c-4c9e-9e64-941a7570544b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Point">
+      <UniqueIdentifier>{9a9eca3c-95ee-481e-a9cb-17f12b6e283e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\String">
+      <UniqueIdentifier>{0afd9250-a55e-4504-b572-dacb0ad15f5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Templates">
+      <UniqueIdentifier>{c86ce9be-fb62-44f5-9c6a-a110d22f4942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Functors">
+      <UniqueIdentifier>{8343e1b2-395e-44ef-81f1-93c6b00167e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\Interfaces">
+      <UniqueIdentifier>{60614b1b-fba6-4f0d-9fa6-d936186d195b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\#Examples">
+      <UniqueIdentifier>{1c61095d-df09-411e-bf4d-5fd2db1c645e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\#Examples\Example_Stl">
+      <UniqueIdentifier>{fd56d682-1bed-4951-a7b3-09b0f01dabf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\#Examples\Example_Lesson_Io">
+      <UniqueIdentifier>{a745e408-8daf-4829-b5c0-2b1735f68e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\#Examples\Example_Lesson_Thread">
+      <UniqueIdentifier>{f5f88824-17ec-4525-8231-e779a93a5600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\#Examples\Example_Lessons">
+      <UniqueIdentifier>{e541aaf5-894f-41d4-8335-4b3980b94eac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Saver">
+      <UniqueIdentifier>{37df45db-13e0-4373-8509-aa4f48951418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Tutorials\#Examples\Example_Lessons_Conversions">
+      <UniqueIdentifier>{704daff0-fb9b-41c5-bf12-15b4909a1f3d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>#Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>#Source Files\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="Template_Specialization.cpp">
+      <Filter>Hacker_Rank\#Task_Classes\Template_Specialization</Filter>
+    </ClCompile>
+    <ClCompile Include="Complex.cpp">
+      <Filter>Hacker_Rank\#Task_Classes\Complex</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial_Main.cpp">
+      <Filter>#Tutorials</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>#Tutorials\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>#Tutorials\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>#Tutorials\String</Filter>
+    </ClCompile>
+    <ClCompile Include="Living_Being.cpp">
+      <Filter>#Tutorials\Living_Being</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger.cpp">
+      <Filter>#Tutorials\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Bicycle.cpp">
+      <Filter>#Tutorials\Bicycle</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_Lesson_Io.cpp">
+      <Filter>#Tutorials\#Examples\Example_Lesson_Io</Filter>
+    </ClCompile>
+    <ClCompile Include="Templates.cpp">
+      <Filter>#Tutorials\Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="Functor_Example.cpp">
+      <Filter>#Tutorials\Functors</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_Lesson_Thread.cpp">
+      <Filter>#Tutorials\#Examples\Example_Lesson_Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_Lessons.cpp">
+      <Filter>#Tutorials\#Examples\Example_Lessons</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools.cpp">
+      <Filter>#Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_Stl.cpp">
+      <Filter>#Tutorials\#Examples\Example_Stl</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>#Tutorials\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Saver.cpp">
+      <Filter>#Saver</Filter>
+    </ClCompile>
+    <ClCompile Include="AsExample_Lesson_Conversions.cpp">
+      <Filter>#Tutorials\#Examples\Example_Lessons_Conversions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main.h">
+      <Filter>#Source Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>#Source Files\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="Template_Specialization.h">
+      <Filter>Hacker_Rank\#Task_Classes\Template_Specialization</Filter>
+    </ClInclude>
+    <ClInclude Include="Complex.h">
+      <Filter>Hacker_Rank\#Task_Classes\Complex</Filter>
+    </ClInclude>
+    <ClInclude Include="Tutorial_Main.h">
+      <Filter>#Tutorials</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>#Tutorials\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>#Tutorials\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>#Tutorials\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Living_Being.h">
+      <Filter>#Tutorials\Living_Being</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger.h">
+      <Filter>#Tutorials\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Bicycle.h">
+      <Filter>#Tutorials\Bicycle</Filter>
+    </ClInclude>
+    <ClInclude Include="Example_Lesson_Io.h">
+      <Filter>#Tutorials\#Examples\Example_Lesson_Io</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates.h">
+      <Filter>#Tutorials\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Functor_Example.h">
+      <Filter>#Tutorials\Functors</Filter>
+    </ClInclude>
+    <ClInclude Include="Example_Lesson_Thread.h">
+      <Filter>#Tutorials\#Examples\Example_Lesson_Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Example_Lessons.h">
+      <Filter>#Tutorials\#Examples\Example_Lessons</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools.h">
+      <Filter>#Source Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Example_Stl.h">
+      <Filter>#Tutorials\#Examples\Example_Stl</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>#Tutorials\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Saver.h">
+      <Filter>#Saver</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsExample_Lesson_Conversions.h">
+      <Filter>#Tutorials\#Examples\Example_Lessons_Conversions</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
