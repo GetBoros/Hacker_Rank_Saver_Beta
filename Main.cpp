@@ -44,6 +44,15 @@ int main()
     AsSaver saver;
     saver.Init();
 
+    // write binary local time
+    GetLocalTime(&ASlasher::Local_Time);  // Save last visit to Local time
+    ofstream data_bin("Data.bin", ios::binary);
+    if (data_bin.is_open() )
+    {
+        data_bin.write(reinterpret_cast<char*>(&ASlasher::Local_Time), sizeof(ASlasher::Local_Time) );
+        data_bin.close();
+    }
+
     // Temp
     /*
     //AHacker_Rank_Tasks hacker_rank_tasks;
@@ -441,9 +450,10 @@ string AHacker_Rank_Tasks::ltrim(const string &str)
 {
     string s(str);
 
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    s.erase(s.begin(), find_if(s.begin(), s.end(), [](int c)
+            {
+                return !std::isspace(c);
+            })
     );
 
     return s;
@@ -453,10 +463,10 @@ string AHacker_Rank_Tasks::rtrim(const string &str)
 {
     string s(str);
 
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](int c)
+        { 
+            return !std::isspace(c);
+        } ).base(), s.end());
 
     return s;
 }

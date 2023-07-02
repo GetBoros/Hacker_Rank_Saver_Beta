@@ -4,7 +4,7 @@
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.1.9";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.0";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::~AsSaver()
@@ -33,8 +33,7 @@ void AsSaver::Handler_Main_Menu()
     // Tasks
     /*
     
-
-    How much time spend in program
+    Last visit 02.07.2023 Example
     Data time when last time come in,
     Try to save binary
 
@@ -308,9 +307,9 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
     anime_title_to_array = left_mark;
 
     if (Save_Menu == ESave_Menu::Delete)
-        cout << "To Delete enter name and series or \"Exit\" to Exit\n-";
+        cout << "To Delete enter name and series or \"Exit\" to Exit, \"back\" to Back in main menu.\n-";
     else
-        cout << "Enter Name and Series or \"Exit\" to Exit:\n-";
+        cout << "Enter Name and Series or \"Exit\" to Exit, \"back\" to Back in main menu.\n-";
 
     while (is_need_to_find)
     {// Input Handle

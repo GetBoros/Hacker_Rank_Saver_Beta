@@ -7,6 +7,11 @@
 #include "Example_Lesson_Io.h"
 #include "Example_Lesson_Thread.h"
 #include "AsExample_Lesson_Conversions.h"
+#include <iostream>
+#include <iterator>
+#include <string>
+#include <regex>
+#include <random>
 
 //------------------------------------------------------------------------------------------------------------------
 class AsTutorial_Main

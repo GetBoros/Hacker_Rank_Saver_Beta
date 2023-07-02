@@ -46,8 +46,11 @@ public:
 	~ASlasher();
 	ASlasher(const std::string &text_to_print);
 
+	static SYSTEMTIME Local_Time;
 private:
 	std::string Text_To_Print;
+
+	static int Slasher_Counter;
 };
 //------------------------------------------------------------------------------------------------------------------
 class AsTools

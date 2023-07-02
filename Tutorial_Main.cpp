@@ -1,8 +1,4 @@
 #include "Tutorial_Main.h"
-#include <iostream>
-#include <iterator>
-#include <string>
-#include <regex>
 
 // AsTutorial_Main
 AsTutorial_Main::AsTutorial_Main()
@@ -133,25 +129,25 @@ void AsTutorial_Main::Random_Shaffle_Example_Algoritms()
 {
     int arr_1[] = { 1, 2, 3, 4, 5 };
 
-    AsAction *action[] = {
+    AsAction* action[] = {
         new ACat_Action(),
         new ADog_Action(),
         new ATea_Action(),
         new ASleep_Action()
     };
 
-    srand((int)time(0) );
+    srand(static_cast<unsigned int>(time(0) ) );
 
-    random_shuffle(begin(action), end(action) );
-    for (auto &it: action)
+    shuffle(begin(action), end(action), default_random_engine( (int)time(0) ) );
+    for (auto* it : action)
         it->Action();
 
-    random_shuffle(begin(arr_1), end(arr_1) );
-    for (auto &it: arr_1)
+    shuffle(begin(arr_1), end(arr_1), default_random_engine( (int)time(0) ) );
+    for (auto it : arr_1)
         cout << it << " ";
     cout << endl;
 
-        for (auto it: action)
-            delete it;
+    for (auto* it : action)
+        delete it;
 }
 //------------------------------------------------------------------------------------------------------------------
