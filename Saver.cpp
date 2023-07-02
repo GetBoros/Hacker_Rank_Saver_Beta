@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.1.8
+// AsSaver | Saver beta 0.2.1
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.0";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.1";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::~AsSaver()
@@ -33,12 +33,9 @@ void AsSaver::Handler_Main_Menu()
     // Tasks
     /*
     
-    Last visit 02.07.2023 Example
-    Data time when last time come in,
-    Try to save binary
+    Need test to find bugs and how upgrade
 
     Anime Ratio, Time when was be addet.
-
 
     from version 0.3.0 maybe go to GUI
 
@@ -60,7 +57,7 @@ void AsSaver::Choser()
         break;
 
     case ESave_Menu::Save:
-        Save_Menu = ESave_Menu::Handler;
+        //Save_Menu = ESave_Menu::Handler;
         Save_To_File();  // Done
         break;
 
@@ -101,6 +98,9 @@ void AsSaver::Add_Data_To_List_New_Beta()
 
     anime_title_to_array = Input_Handler(is_paused, is_end, anime_series);
 
+    if (anime_title_to_array == "«")
+        return;
+
     if (anime_title_to_array != "«")
     {
         Add_To_Specifer_Lists(is_paused, is_end, anime_title_to_array, anime_series);
@@ -125,12 +125,12 @@ void AsSaver::Delete_Data_From_List()
     if (to_delete_from_array != "«")
     {
         if (is_paused)
-            Anime_Map_Paused.erase(to_delete_from_array);
+            Anime_Map_Paused.erase("|Pause|" + to_delete_from_array);
         else if (is_end)
-            Anime_Map_End_Watch.erase(to_delete_from_array);
+            Anime_Map_End_Watch.erase("|End|" + to_delete_from_array);
         else
             Anime_Map.erase(to_delete_from_array);
-        cout << "Delet was seccuss \n";
+        cout << "Delet was seccuss! \n";
         Save_To_File();
     }
     else
@@ -152,6 +152,7 @@ void AsSaver::Save_To_File()
     for (auto &it : Anime_Map_Paused)
         out_put_to_file<< it.first << it.second << "\n";
 
+    cout << "Save success!\n";
     out_put_to_file.close();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -181,13 +182,17 @@ void AsSaver::Read_Lines_From_File()
     }
 
     Print_Out_Map(Anime_Map);
+
+    cout << "\t\t\t\t\tEnd List" << endl;
     Print_Out_Map(Anime_Map_End_Watch);
+
+    cout << "\t\t\t\t\tPaused List" << endl;
     Print_Out_Map(Anime_Map_Paused);
 
     if (fin.eof() )
-        cout << "Load Succes" << endl;
+        cout << "Load Success!" << endl;
     else
-        cout << "Load False" << endl;
+        cout << "Load False!" << endl;
 
     fin.close();
 }
@@ -262,6 +267,7 @@ void AsSaver::Print_Out_Map(map<string, int>& anime_map)
 
         cout << ++Counter_List << " " << ".\t" << it.first << add << " Series: " << it.second << endl;
     }
+    cout << AsTools::Slash_String << "\n";
     Counter_List = 0;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -315,6 +321,12 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
     {// Input Handle
 
         cin >> anime_title;
+
+        if ("Exit" == anime_title || anime_title == "exit")
+        {
+            Save_Menu = ESave_Menu::Exit;
+            break;
+        }
 
         if (anime_title == "Back " || anime_title == "back")
             break;

@@ -9,7 +9,6 @@ class AsConfig
 public:
 	static void Throw();
 	static void Text_Print_To_Console(string text_to_console, bool slash = true, string second_text = "");
-
 	static void Print_Player_Query();
 
 	static const int Max_Char_Symbol = 255;
