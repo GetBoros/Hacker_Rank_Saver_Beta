@@ -6,13 +6,35 @@ AsHuman::~AsHuman()
 }
 //------------------------------------------------------------------------------------------------------------------
 AsHuman::AsHuman()
-:Is_Male(true), Age(0.0), Height(0.0), Weight(0.0), Body_Fats(10000.0)
+	:Is_Male(true), Age(0.0), Height(0.0), Weight(0.0), Body_Fats(10000.0)
 {
 }
 //------------------------------------------------------------------------------------------------------------------
 AsHuman::AsHuman(bool is_male, double age, double weight, double height)
-: Is_Male(is_male), Age(age), Weight(weight), Height(height), Body_Fats(10000.0)
+	: Is_Male(is_male), Age(age), Weight(weight), Height(height), Body_Fats(10000.0)
 {
+}
+//------------------------------------------------------------------------------------------------------------------
+const void AsHuman::Eat(AFood &food)
+{
+	Body_Fats = Body_Fats + food.Get_Calories();
+}//------------------------------------------------------------------------------------------------------------------
+bool AsHuman::Spend_Time(double &time)
+{
+double cal_per_hour;
+double cal_per_min;
+	if (Body_Fats <= 500.0)  // if less then 500 character die
+		return false;
+	
+	cal_per_hour = Get_Basal_Metabolic_Rate() / 24.0;  // calories destroi per hour
+	cal_per_min = cal_per_hour / 60;  // calories destroi per min
+
+	if (time > 1.0)
+		Body_Fats = Body_Fats - (cal_per_hour * time);
+	else
+		Body_Fats = Body_Fats - (cal_per_min * time);
+
+	return true;
 }
 //------------------------------------------------------------------------------------------------------------------
 double AsHuman::Get_Basal_Metabolic_Rate() const
@@ -44,25 +66,6 @@ double AsHuman::Get_Basal_Metabolic_Rate() const
 	return BMR;
 }
 //------------------------------------------------------------------------------------------------------------------
-bool AsHuman::Spend_Time(double &time)
-{
-	double cal_per_hour;
-	double cal_per_min;
-
-	if (Body_Fats <= 500.0)  // if less then 500 character die
-		return false;
-	
-	cal_per_hour = Get_Basal_Metabolic_Rate() / 24.0;  // calories destroi per hour
-	cal_per_min = cal_per_hour / 60;  // calories destroi per min
-
-	if (time > 1.0)
-		Body_Fats = Body_Fats - (cal_per_hour * time);
-	else
-		Body_Fats = Body_Fats - (cal_per_min * time);
-
-	return true;
-}
-//------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -79,13 +82,56 @@ As_Life_Simulator::As_Life_Simulator()
 void As_Life_Simulator::Init()
 {
 	bool is_human_still_alive = true;
-	double spend_time = 24.0;
+	double spend_time = 0.15;  // 0.15 min | 1.15 hour and 15 min
+	AFood carrot(5, 0, 7);
 	AsHuman john(true, 32.0, 60.0, 185.0);
 
 	while (is_human_still_alive)
 	{
 		is_human_still_alive = john.Spend_Time(spend_time);
+		john.Eat(carrot);  // Get calories to Body_Fats
+		
 	}
+}
+//------------------------------------------------------------------------------------------------------------------
 
+
+
+
+// AsMacronutrients
+AsMacronutrients::AsMacronutrients(double fats, double proteins, double carbohydrates)
+: Fats(fats), Proteins(proteins), Carbohydrates(carbohydrates)
+{
+}
+//------------------------------------------------------------------------------------------------------------------
+
+
+
+
+// AFood
+AFood::AFood(double fats, double proteins, double carbohydrates)
+: AsMacronutrients(fats, proteins, carbohydrates)
+{
+
+}
+//------------------------------------------------------------------------------------------------------------------
+double AFood::Get_Calories()
+{
+	Fats = Fats * 9.0;  // Get Calories
+	Proteins = Proteins * 4.0;
+	Carbohydrates = Carbohydrates * 4.0;
+
+	return Fats + Proteins + Carbohydrates;
+}
+//------------------------------------------------------------------------------------------------------------------
+void AFood::Get_Vitamins(string &name)
+{
+	AsNutrients::Vitamins;
+	string temp;
+
+	if (name == "carrot")
+	{// A B1, B2, B3, B5, B6, B9, C, K, E
+
+	}
 }
 //------------------------------------------------------------------------------------------------------------------
