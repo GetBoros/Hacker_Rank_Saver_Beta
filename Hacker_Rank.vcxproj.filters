@@ -79,11 +79,17 @@
     <Filter Include="#Tutorials\#Examples\Example_Lessons">
       <UniqueIdentifier>{e541aaf5-894f-41d4-8335-4b3980b94eac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="#Saver">
-      <UniqueIdentifier>{37df45db-13e0-4373-8509-aa4f48951418}</UniqueIdentifier>
-    </Filter>
     <Filter Include="#Tutorials\#Examples\Example_Lessons_Conversions">
       <UniqueIdentifier>{704daff0-fb9b-41c5-bf12-15b4909a1f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Program_Folder">
+      <UniqueIdentifier>{51b4b7a4-8d77-4e66-a00e-7656505560b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Program_Folder\Life_Simulator">
+      <UniqueIdentifier>{1d5497bb-c593-4847-9e2c-f5133c4d39e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Program_Folder\Saver">
+      <UniqueIdentifier>{37df45db-13e0-4373-8509-aa4f48951418}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,10 +151,13 @@
       <Filter>#Tutorials\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Saver.cpp">
-      <Filter>#Saver</Filter>
+      <Filter>#Program_Folder\Saver</Filter>
     </ClCompile>
     <ClCompile Include="AsExample_Lesson_Conversions.cpp">
       <Filter>#Tutorials\#Examples\Example_Lessons_Conversions</Filter>
+    </ClCompile>
+    <ClCompile Include="As_Life_Simulator.cpp">
+      <Filter>#Program_Folder\Life_Simulator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,13 +219,16 @@
       <Filter>#Tutorials\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Saver.h">
-      <Filter>#Saver</Filter>
+      <Filter>#Program_Folder\Saver</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AsExample_Lesson_Conversions.h">
       <Filter>#Tutorials\#Examples\Example_Lessons_Conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="As_Life_Simulator.h">
+      <Filter>#Program_Folder\Life_Simulator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

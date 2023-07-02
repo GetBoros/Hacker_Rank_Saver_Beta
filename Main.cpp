@@ -42,16 +42,15 @@ int main()
     setlocale(LC_ALL, "ru");
 
     AsSaver saver;
-    saver.Init();
-
-    // write binary local time
-    GetLocalTime(&ASlasher::Local_Time);  // Save last visit to Local time
-    ofstream data_bin("Data.bin", ios::binary);
-    if (data_bin.is_open() )
+    As_Life_Simulator life_simulator;
+    
+    if (true)
     {
-        data_bin.write(reinterpret_cast<char*>(&ASlasher::Local_Time), sizeof(ASlasher::Local_Time) );
-        data_bin.close();
+        life_simulator;
     }
+    else
+        saver.Init();
+
 
     // Temp
     /*

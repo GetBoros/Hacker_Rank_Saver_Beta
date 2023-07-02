@@ -4,6 +4,7 @@
 #include "Complex.h"
 #include "Tutorial_Main.h"
 #include "Saver.h"
+#include "As_Life_Simulator.h"
 
 typedef pair<int,int> p;
 typedef vector<p> Available_Workshops;

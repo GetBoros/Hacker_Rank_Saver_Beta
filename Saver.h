@@ -16,7 +16,7 @@ enum class ESave_Menu: unsigned char
 class AsSaver
 {
 public:
-	~AsSaver();
+	~AsSaver();  // Save Data time when file delete
 	AsSaver();
 
 	void Init();
@@ -36,12 +36,12 @@ private:
 	string Input_Handler(bool &is_paused, bool &is_end, int &anime_series);  // Handl input from console
 	void Add_To_Specifer_Lists(bool &is_paused, bool &is_end, string &anime_title_to_array, int &anime_series);  // Add to arrays
 
-	ESave_Menu Save_Menu;
+	ESave_Menu Save_Menu;  // Saver Menu
 	int Counter_List;
 	double Max_Array_Size;
 
-	ASlasher Slasher;
-	AsSimple_Timer simple_timer;
+	ASlasher Slasher;  // Title for program
+	AsSimple_Timer simple_timer;  // Timer, How much program live
 
 	map<string, int> Anime_Map;
 	map<string, int> Anime_Map_End_Watch;

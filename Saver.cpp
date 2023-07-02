@@ -9,6 +9,15 @@ const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to A
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::~AsSaver()
 {
+    // write binary Local_Time
+    GetLocalTime(&ASlasher::Local_Time);  // Save last visit to Local time
+    ofstream data_bin("Data.bin", ios::binary);
+    if (data_bin.is_open() )
+    {
+        data_bin.write(reinterpret_cast<char*>(&ASlasher::Local_Time), sizeof(ASlasher::Local_Time) );
+        data_bin.close();
+    }
+    cout << "Time last visit was be saved";
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::AsSaver()
