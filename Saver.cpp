@@ -46,6 +46,8 @@ void AsSaver::Handler_Main_Menu()
     if i write qwer II 1
     need delete qwer I or set do end array
 
+    Time spendet in program when exit
+
     Need test to find bugs and how upgrade
 
     Anime Ratio, Time when was be addet.
@@ -141,6 +143,9 @@ void AsSaver::Delete_Data_From_List(const string &del_from_array)
         to_delete_from_array = del_from_array;
     else
         to_delete_from_array = Input_Handler(is_paused, is_end, series, to_delete_from_array);
+
+    if (Save_Menu == ESave_Menu::Exit)
+        return;
 
     if (to_delete_from_array != "«")
     {
@@ -330,6 +335,7 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series, 
     string anime_title;
     bool its_season = false;
     string anime_title_to_delete;
+    string season;
 
     is_need_to_find = true;
     is_already_marked = false;
@@ -356,15 +362,6 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series, 
         {
             Save_Menu = ESave_Menu::Handler;
             break;
-        }
-
-        for (i = 0; i < 8; i++)
-        {
-            if (seasons[i] == anime_title)
-            {
-                its_season = true;
-                continue;
-            }
         }
 
         if (counter == 0)
@@ -396,6 +393,23 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series, 
         }
         catch (const exception &)
         {
+            if (counter != 0)
+            {
+                for (i = 0; i < seasons->max_size(); i++)
+                {
+                    string test = anime_title_to_array + space + seasons[i] + right_mark;
+                    It_Anime_Map = Anime_Map.find(test);
+                    if (It_Anime_Map != Anime_Map.end() )
+                        Anime_Map.erase(It_Anime_Map);
+
+                    if (seasons[i] == anime_title)
+                    {
+                        its_season = true;
+                        season = anime_title;
+                        break;
+                    }
+                }
+            }
             if (counter++ == 0)
                 anime_title_to_array = anime_title_to_array + anime_title;
             else
