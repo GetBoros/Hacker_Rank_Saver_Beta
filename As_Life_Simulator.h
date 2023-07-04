@@ -19,7 +19,6 @@ public:
 	AFood(double fats, double proteins, double carbohydrates);
 
 	double Get_Calories();  // Tranform to Calories
-	void Get_Vitamins(string &name);
 
 private:
 
@@ -32,7 +31,9 @@ public:
 	AsHuman();
 	AsHuman(bool is_male, double age, double weight, double height);
 
-	const void Eat(AFood &food);
+	const void Eat(AFood &food);  // get vitamins and AsMacronutrients 
+	void Sleep();  // Sleep need to start recovery imunity system and tranfer Fat from All reserve
+
 	bool Spend_Time(double &time);
 	double Get_Basal_Metabolic_Rate() const;
 

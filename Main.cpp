@@ -41,10 +41,13 @@ int main()
     SetConsoleCP(1251);
     setlocale(LC_ALL, "ru");
 
-    As_Life_Simulator life_simulator;
-    
-    if (true)
-        life_simulator.Init();
+    AsSaver saver;
+    saver.Init();
+
+    //As_Life_Simulator life_simulator;
+    //
+    //if (true)
+    //    life_simulator.Init();
 
 
     // Temp

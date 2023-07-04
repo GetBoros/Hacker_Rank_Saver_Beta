@@ -18,7 +18,12 @@ AsHuman::AsHuman(bool is_male, double age, double weight, double height)
 const void AsHuman::Eat(AFood &food)
 {
 	Body_Fats = Body_Fats + food.Get_Calories();
-}//------------------------------------------------------------------------------------------------------------------
+}
+//------------------------------------------------------------------------------------------------------------------
+void AsHuman::Sleep()
+{
+}
+//------------------------------------------------------------------------------------------------------------------
 bool AsHuman::Spend_Time(double &time)
 {
 double cal_per_hour;
@@ -83,15 +88,18 @@ void As_Life_Simulator::Init()
 {
 	bool is_human_still_alive = true;
 	double spend_time = 0.15;  // 0.15 min | 1.15 hour and 15 min
-	AFood carrot(5, 0, 7);
+	AFood breakfast(124, 100, 20);  // need 1600 | Fats 70% 124g | Proteins 25% 100g | vegtales 5% 20g |
 	AsHuman john(true, 32.0, 60.0, 185.0);
 
 	while (is_human_still_alive)
-	{
+	{// 
+
+		john.Eat(breakfast);  // can be only one per day
 		is_human_still_alive = john.Spend_Time(spend_time);
-		john.Eat(carrot);  // Get calories to Body_Fats
+		john.Sleep();
 		
 	}
+	cout << "You are afk" << endl;
 }
 //------------------------------------------------------------------------------------------------------------------
 
@@ -122,16 +130,5 @@ double AFood::Get_Calories()
 	Carbohydrates = Carbohydrates * 4.0;
 
 	return Fats + Proteins + Carbohydrates;
-}
-//------------------------------------------------------------------------------------------------------------------
-void AFood::Get_Vitamins(string &name)
-{
-	AsNutrients::Vitamins;
-	string temp;
-
-	if (name == "carrot")
-	{// A B1, B2, B3, B5, B6, B9, C, K, E
-
-	}
 }
 //------------------------------------------------------------------------------------------------------------------

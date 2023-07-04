@@ -42,6 +42,10 @@ void AsSaver::Handler_Main_Menu()
     // Tasks
     /*
     
+    qwer I 23
+    if i write qwer II 1
+    need delete qwer I or set do end array
+
     Need test to find bugs and how upgrade
 
     Anime Ratio, Time when was be addet.
@@ -338,7 +342,10 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
         }
 
         if (anime_title == "Back " || anime_title == "back")
+        {
+            Save_Menu = ESave_Menu::Handler;
             break;
+        }
 
         if (counter == 0)
         {
