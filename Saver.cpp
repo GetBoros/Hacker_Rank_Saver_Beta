@@ -105,11 +105,12 @@ void AsSaver::Add_Data_To_List_New_Beta()
     bool is_end;
     int anime_series;
     string anime_title_to_array;
+    string anime_title_to_delete;
     
     is_paused = false;
     is_end = false;
 
-    anime_title_to_array = Input_Handler(is_paused, is_end, anime_series);
+    anime_title_to_array = Input_Handler(is_paused, is_end, anime_series, anime_title_to_delete);
 
     if (anime_title_to_array == "«")
         return;
@@ -117,13 +118,16 @@ void AsSaver::Add_Data_To_List_New_Beta()
     if (anime_title_to_array != "«")
     {
         Add_To_Specifer_Lists(is_paused, is_end, anime_title_to_array, anime_series);
-        Save_To_File();
+        if (anime_title_to_delete != "")
+            Delete_Data_From_List(anime_title_to_delete);
+        else
+            Save_To_File();
     }
     else
         Save_Menu = ESave_Menu::Handler;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Delete_Data_From_List()
+void AsSaver::Delete_Data_From_List(const string &del_from_array)
 {
     bool is_paused;
     bool is_end;
@@ -133,7 +137,10 @@ void AsSaver::Delete_Data_From_List()
     is_paused = false;
     is_end = false;
 
-    to_delete_from_array = Input_Handler(is_paused, is_end, series);
+    if (del_from_array != "")
+        to_delete_from_array = del_from_array;
+    else
+        to_delete_from_array = Input_Handler(is_paused, is_end, series, to_delete_from_array);
 
     if (to_delete_from_array != "«")
     {
@@ -308,17 +315,21 @@ void AsSaver::Check_If_File_Excist()
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
+string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series, string &del_from_array)
 {// new task || Save string without << >> example «Верховный Бог III» 150
+    int i;
     const char space = ' ';
     const char left_mark = '«';
     const char right_mark = '»';
+    const string seasons[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
 
     bool is_need_to_find;
     bool is_already_marked;
     int counter;
     string anime_title_to_array;
     string anime_title;
+    bool its_season = false;
+    string anime_title_to_delete;
 
     is_need_to_find = true;
     is_already_marked = false;
@@ -345,6 +356,15 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
         {
             Save_Menu = ESave_Menu::Handler;
             break;
+        }
+
+        for (i = 0; i < 8; i++)
+        {
+            if (seasons[i] == anime_title)
+            {
+                its_season = true;
+                continue;
+            }
         }
 
         if (counter == 0)
@@ -379,7 +399,16 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
             if (counter++ == 0)
                 anime_title_to_array = anime_title_to_array + anime_title;
             else
-                anime_title_to_array = anime_title_to_array + space + anime_title;
+            {
+                if (its_season)
+                {
+                    del_from_array = anime_title_to_array + right_mark;
+                    anime_title_to_array = anime_title_to_array + space + anime_title;
+                    its_season = false;
+                }
+                else
+                    anime_title_to_array = anime_title_to_array + space + anime_title;
+            }
         }
     }
     return anime_title_to_array;
