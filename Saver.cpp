@@ -1,11 +1,15 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.1
+// AsSaver | Saver beta 0.2.2
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
 const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.1";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
+const char AsSaver::Space = ' ';
+const char AsSaver::Left_Mark = '«';
+const char AsSaver::Right_Mark = '»';
+const string AsSaver::Seasons[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::~AsSaver()
 {
@@ -82,11 +86,11 @@ void AsSaver::Choser()
         break;
 
     case ESave_Menu::Add_Data:
-        Add_Data_To_List_New_Beta();  // Done
+        Add_Or_Erase_Data(false);  // Done
         break;
 
     case ESave_Menu::Delete:
-        Delete_Data_From_List();  // Enter string "«qwer qwer»" to delete from array
+        Add_Or_Erase_Data(true);  // Enter string "«qwer qwer»" to delete from array
         break;
 
     case ESave_Menu::Exit:
@@ -101,65 +105,40 @@ void AsSaver::Choser()
         cout << Titles << endl;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Add_Data_To_List_New_Beta()
+void AsSaver::Add_Or_Erase_Data(bool is_erase)
 {
     bool is_paused;
     bool is_end;
     int anime_series;
-    string anime_title_to_array;
-    string anime_title_to_delete;
+    string anime_title;
     
     is_paused = false;
     is_end = false;
 
-    anime_title_to_array = Input_Handler(is_paused, is_end, anime_series, anime_title_to_delete);
-
-    if (anime_title_to_array == "«")
+    anime_title = Input_Handler(is_paused, is_end, anime_series);
+    
+    if (Save_Menu == ESave_Menu::Exit || anime_title == "«")
         return;
 
-    if (anime_title_to_array != "«")
-    {
-        Add_To_Specifer_Lists(is_paused, is_end, anime_title_to_array, anime_series);
-        if (anime_title_to_delete != "")
-            Delete_Data_From_List(anime_title_to_delete);
-        else
-            Save_To_File();
-    }
-    else
-        Save_Menu = ESave_Menu::Handler;
-}
-//-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Delete_Data_From_List(const string &del_from_array)
-{
-    bool is_paused;
-    bool is_end;
-    int series;
-    string to_delete_from_array;
-
-    is_paused = false;
-    is_end = false;
-
-    if (del_from_array != "")
-        to_delete_from_array = del_from_array;
-    else
-        to_delete_from_array = Input_Handler(is_paused, is_end, series, to_delete_from_array);
-
-    if (Save_Menu == ESave_Menu::Exit)
-        return;
-
-    if (to_delete_from_array != "«")
-    {
+    if (is_erase)
+    {// delete from list
         if (is_paused)
-            Anime_Map_Paused.erase("|Pause|" + to_delete_from_array);
+            Anime_Map_Paused.erase("|Pause|" + anime_title);
         else if (is_end)
-            Anime_Map_End_Watch.erase("|End|" + to_delete_from_array);
+            Anime_Map_End_Watch.erase("|End|" + anime_title);
         else
-            Anime_Map.erase(to_delete_from_array);
+            Anime_Map.erase(anime_title);
         cout << "Delet was seccuss! \n";
-        Save_To_File();
     }
     else
-        Save_Menu = ESave_Menu::Handler;
+    {// add to list
+        if (anime_title != "«")
+            Add_To_Specifer_Lists(is_paused, is_end, anime_title, anime_series);
+        else
+            Save_Menu = ESave_Menu::Handler;
+    }
+
+    Save_To_File();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Save_To_File()
@@ -320,27 +299,19 @@ void AsSaver::Check_If_File_Excist()
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series, string &del_from_array)
+string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
 {// new task || Save string without << >> example «Верховный Бог III» 150
     int i;
-    const char space = ' ';
-    const char left_mark = '«';
-    const char right_mark = '»';
-    const string seasons[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
-
     bool is_need_to_find;
     bool is_already_marked;
     int counter;
     string anime_title_to_array;
     string anime_title;
-    bool its_season = false;
-    string anime_title_to_delete;
-    string season;
 
     is_need_to_find = true;
     is_already_marked = false;
     counter = 0;
-    anime_title_to_array = left_mark;
+    anime_title_to_array = Left_Mark;
 
     if (Save_Menu == ESave_Menu::Delete)
         cout << "To Delete enter name and series or \"Exit\" to Exit, \"back\" to Back in main menu.\n-";
@@ -349,34 +320,33 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series, 
 
     while (is_need_to_find)
     {// Input Handle
-
         cin >> anime_title;
 
-        if ("Exit" == anime_title || anime_title == "exit")
-        {
-            Save_Menu = ESave_Menu::Exit;
-            break;
-        }
-
-        if (anime_title == "Back " || anime_title == "back")
-        {
-            Save_Menu = ESave_Menu::Handler;
-            break;
-        }
-
         if (counter == 0)
-        {
-            if (anime_title == "paused" || anime_title == "Paused")
+        {// check only first time 
+            if ("Exit" == anime_title || anime_title == "exit")
+            {
+                Save_Menu = ESave_Menu::Exit;
+                break;
+            }
+
+            if ("Back" == anime_title || anime_title == "back")
+            {
+                Save_Menu = ESave_Menu::Handler;
+                break;
+            }
+
+            if ("Paused" == anime_title  || anime_title == "paused")
             {
                 is_paused = true;
                 continue;
             }
-            else if (anime_title == "end" || anime_title == "End")
+            else if ("End" == anime_title || anime_title == "end")
             {
                 is_end = true;
                 continue;
             }
-            if(anime_title[0] == left_mark)
+            else if(anime_title[0] == Left_Mark)
             {
                 anime_title_to_array = "";
                 is_already_marked = true;
@@ -384,45 +354,32 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series, 
         }
 
         try
-        {
-            anime_series = stoi(anime_title);
+        {// try to get series(int data)
+            anime_series = stoi(anime_title);  // all logic in this try catch
+            is_need_to_find = false;  // if false we find nums to end the cycle
             if (!is_already_marked)
-                anime_title_to_array = anime_title_to_array + right_mark;
+                anime_title_to_array = anime_title_to_array + Right_Mark;
 
-            is_need_to_find = false;
         }
         catch (const exception &)
-        {
+        {// formating data name 
             if (counter != 0)
             {
-                for (i = 0; i < seasons->max_size(); i++)
+                for (i = 0; i < Seasons->max_size(); i++)
                 {
-                    string test = anime_title_to_array + space + seasons[i] + right_mark;
+                    if (Seasons[i] == anime_title)  // after get current season exit from cycle
+                        break;
+
+                    string test = anime_title_to_array + Space + Seasons[i] + Right_Mark;  // try to find prev seasons to erase that
                     It_Anime_Map = Anime_Map.find(test);
                     if (It_Anime_Map != Anime_Map.end() )
                         Anime_Map.erase(It_Anime_Map);
-
-                    if (seasons[i] == anime_title)
-                    {
-                        its_season = true;
-                        season = anime_title;
-                        break;
-                    }
                 }
             }
             if (counter++ == 0)
                 anime_title_to_array = anime_title_to_array + anime_title;
             else
-            {
-                if (its_season)
-                {
-                    del_from_array = anime_title_to_array + right_mark;
-                    anime_title_to_array = anime_title_to_array + space + anime_title;
-                    its_season = false;
-                }
-                else
-                    anime_title_to_array = anime_title_to_array + space + anime_title;
-            }
+                anime_title_to_array = anime_title_to_array + Space + anime_title;
         }
     }
     return anime_title_to_array;

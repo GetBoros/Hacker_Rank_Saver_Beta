@@ -24,8 +24,7 @@ public:
 private:
 	void Handler_Main_Menu();
 	void Choser();  // Choose option or main menu
-	void Add_Data_To_List_New_Beta();  // Add Data Beta
-	void Delete_Data_From_List(const string &del_from_array = "");  // Delete from array
+	void Add_Or_Erase_Data(bool is_erase);  // Add Data Beta
 	void Save_To_File();  // Save
 	void Read_Lines_From_File();  // Load
 	void Refactoring_String(const string &text, string &to_array, int &int_to_array);
@@ -33,7 +32,7 @@ private:
 
 	void Print_Out_Map(map<string, int> &anime_map);  // Show all Arrays in console
 	void Check_If_File_Excist();  // if file doesn`t exsist creating it
-	string Input_Handler(bool &is_paused, bool &is_end, int &anime_series, string &del_from_array);  // Handl input from console
+	string Input_Handler(bool &is_paused, bool &is_end, int &anime_series);  // Handl input from console
 	void Add_To_Specifer_Lists(bool &is_paused, bool &is_end, string &anime_title_to_array, int &anime_series);  // Add to arrays
 
 	ESave_Menu Save_Menu;  // Saver Menu
@@ -54,5 +53,10 @@ private:
 	static const string Pause_Anime;
 	static const string Saver_Version;
 	static const string Titles;
+	static const char Space;
+	static const char Left_Mark;
+	static const char Right_Mark;
+	static const string Seasons[];
+
 };
 //-------------------------------------------------------------------------------------------------------------------------------
