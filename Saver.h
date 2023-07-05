@@ -47,6 +47,7 @@ private:
 	map<string, int> Anime_Map_Paused;
 	map<string, int>::iterator It_Anime_Map;
 	map<string, int>::iterator It_Anime_Map_Pause;
+	map<string, int>::iterator It_Anime_Map_End_Watch;
 
 	static const string Warning;
 	static const string End_Watch;

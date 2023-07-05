@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.2
+// AsSaver | Saver beta 0.2.3
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.1";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.3";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
@@ -46,16 +46,11 @@ void AsSaver::Handler_Main_Menu()
     // Tasks
     /*
     
-    qwer I 23
-    if i write qwer II 1
-    need delete qwer I or set do end array
-
-    Time spendet in program when exit
+    create thread_1 to find and erase Data from end list or paused list
 
     Need test to find bugs and how upgrade
 
     Anime Ratio, Time when was be addet.
-
     from version 0.3.0 maybe go to GUI
 
     */
@@ -371,9 +366,35 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
                         break;
 
                     string test = anime_title_to_array + Space + Seasons[i] + Right_Mark;  // try to find prev seasons to erase that
-                    It_Anime_Map = Anime_Map.find(test);
+                    // TODO
+                    /*
+                    Need to find seasons in:
+                    all Anime_Map_End_Watch and Anime_Map_Paused 
+                    Thread thread_1 for Anime_Map_End_Watch;
+                    Thread thread_2 for Anime_Map_Paused 
+
+                    */
+
+                    if (i == 0)
+                    {
+                        It_Anime_Map = Anime_Map.find(test);
+                        It_Anime_Map_End_Watch = Anime_Map_End_Watch.find(End_Watch + anime_title_to_array + Right_Mark);
+                        It_Anime_Map_Pause = Anime_Map_Paused.find(Pause_Anime + anime_title_to_array + Right_Mark);
+                    }
+                    else
+                    {
+                        It_Anime_Map = Anime_Map.find(test);
+                        It_Anime_Map_End_Watch = Anime_Map_End_Watch.find(End_Watch + test);
+                        It_Anime_Map_Pause = Anime_Map_Paused.find(Pause_Anime + test);
+                    }
                     if (It_Anime_Map != Anime_Map.end() )
                         Anime_Map.erase(It_Anime_Map);
+
+                    if (It_Anime_Map_End_Watch != Anime_Map_End_Watch.end() )
+                        Anime_Map_End_Watch.erase(It_Anime_Map_End_Watch);
+
+                    if (It_Anime_Map_Pause != Anime_Map_Paused.end() )
+                        Anime_Map_Paused.erase(It_Anime_Map_Pause);
                 }
             }
             if (counter++ == 0)
