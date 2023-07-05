@@ -21,7 +21,7 @@ AsSaver::~AsSaver()
         data_bin.write(reinterpret_cast<char*>(&ASlasher::Local_Time), sizeof(ASlasher::Local_Time) );
         data_bin.close();
     }
-    cout << "Time last visit was be saved";
+    cout << "Time last visit was be saved\n";
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::AsSaver()
@@ -277,7 +277,7 @@ void AsSaver::Check_If_File_Excist()
     if (file)
     {
         cout << "File Load Succes... \n" << endl;
-        Read_Lines_From_File();
+        //Read_Lines_From_File();
         file.close();
     }
     else

@@ -40,7 +40,6 @@ private:
 	double Max_Array_Size;
 
 	ASlasher Slasher;  // Title for program
-	AsSimple_Timer simple_timer;  // Timer, How much program live
 
 	map<string, int> Anime_Map;
 	map<string, int> Anime_Map_End_Watch;

@@ -38,11 +38,21 @@ int main()
     //AExample_Lesson_Io example_lesson_io;
     //example_lesson_io.Output_Input_Binary();
 
+    chrono::steady_clock::time_point start, end;
+    chrono::duration<float> duration;
+
+    start = chrono::high_resolution_clock::now();
+
     SetConsoleCP(1251);
     setlocale(LC_ALL, "ru");
 
     AsSaver saver;
     saver.Init();
+
+    end = chrono::high_resolution_clock::now();
+    duration = end - start;
+    cout << "Program life time: = (" << duration.count() << " Seconds!!!)" << endl;
+
 
     //As_Life_Simulator life_simulator;
     //
@@ -93,6 +103,8 @@ int main()
     // Self Prod
     //hacker_rank_tasks.File_Example_Input_Output();
     */
+
+    return 0;
 }
 //------------------------------------------------------------------------------------------------------------------
 
