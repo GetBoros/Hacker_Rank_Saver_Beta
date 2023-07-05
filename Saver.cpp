@@ -46,8 +46,6 @@ void AsSaver::Handler_Main_Menu()
     // Tasks
     /*
     
-    create thread_1 to find and erase Data from end list or paused list
-
     Need test to find bugs and how upgrade
 
     Anime Ratio, Time when was be addet.
