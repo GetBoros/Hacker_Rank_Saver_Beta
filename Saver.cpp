@@ -360,7 +360,8 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
         {// formating data name 
             if (counter != 0)
             {
-                for (i = 0; i < Seasons->max_size(); i++)
+                int b = Seasons->size();
+                for (i = 0; i < 9; i++)
                 {
                     if (Seasons[i] == anime_title)  // after get current season exit from cycle
                         break;
