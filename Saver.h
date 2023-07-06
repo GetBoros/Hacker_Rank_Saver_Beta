@@ -26,7 +26,7 @@ private:
 	void Choser();  // Choose option or main menu
 	void Add_Or_Erase_Data(bool is_erase);  // Add Data Beta
 	void Save_To_File();  // Save
-	void Read_Lines_From_File();  // Load
+	void Read_Lines_From_File(const bool is_need_to_print = true);  // Load
 	void Refactoring_String(const string &text, string &to_array, int &int_to_array);
 	ESave_Menu Proccesing_Reguest();
 

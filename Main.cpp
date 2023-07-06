@@ -35,11 +35,11 @@ int CalculateMaxWorkshops(Available_Workshops* data)
 //------------------------------------------------------------------------------------------------------------------
 int main()
 {
-    //AExample_Lesson_Io example_lesson_io;
-    //example_lesson_io.Output_Input_Binary();
-
     chrono::steady_clock::time_point start, end;
     chrono::duration<float> duration;
+
+    //AExample_Lesson_Io example_lesson_io;
+    //example_lesson_io.Output_Input_Binary();
 
     start = chrono::high_resolution_clock::now();
 
@@ -48,11 +48,6 @@ int main()
 
     AsSaver saver;
     saver.Init();
-
-    end = chrono::high_resolution_clock::now();
-    duration = end - start;
-    cout << "Program life time: = (" << duration.count() << " Seconds!!!)" << endl;
-
 
     //As_Life_Simulator life_simulator;
     //
@@ -103,6 +98,10 @@ int main()
     // Self Prod
     //hacker_rank_tasks.File_Example_Input_Output();
     */
+
+    end = chrono::high_resolution_clock::now();
+    duration = end - start;
+    cout << "Program life time: = (" << duration.count() << " Seconds!!!)" << endl;
 
     system("pause");
     return 0;

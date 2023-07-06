@@ -153,7 +153,7 @@ void AsSaver::Save_To_File()
     out_put_to_file.close();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Read_Lines_From_File()
+void AsSaver::Read_Lines_From_File(const bool is_need_to_print)
 {
     int max_string_size = 0;
     ifstream fin;
@@ -178,13 +178,14 @@ void AsSaver::Read_Lines_From_File()
                 Anime_Map.emplace(string_to_arr, int_to_arr);  // Add To Map List which sort by char
     }
 
-    Print_Out_Map(Anime_Map);
-
-    cout << "\t\t\t\t\tEnd List" << endl;
-    Print_Out_Map(Anime_Map_End_Watch);
-
-    cout << "\t\t\t\t\tPaused List" << endl;
-    Print_Out_Map(Anime_Map_Paused);
+    if (is_need_to_print)
+    {
+        Print_Out_Map(Anime_Map);
+        cout << "\t\t\t\t\tEnd List" << endl;
+        Print_Out_Map(Anime_Map_End_Watch);
+        cout << "\t\t\t\t\tPaused List" << endl;
+        Print_Out_Map(Anime_Map_Paused);
+    }
 
     if (fin.eof() )
         cout << "Load Success!" << endl;
@@ -275,7 +276,7 @@ void AsSaver::Check_If_File_Excist()
     if (file)
     {
         cout << "File Load Succes... \n" << endl;
-        //Read_Lines_From_File();
+        Read_Lines_From_File(false);
         file.close();
     }
     else
