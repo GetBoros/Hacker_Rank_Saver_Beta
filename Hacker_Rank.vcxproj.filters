@@ -91,6 +91,12 @@
     <Filter Include="#Program_Folder\Saver">
       <UniqueIdentifier>{37df45db-13e0-4373-8509-aa4f48951418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="#Program_Folder\Life_Simulator\Food">
+      <UniqueIdentifier>{1470078d-cbe1-4b1b-83af-6de371135860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="#Program_Folder\Life_Simulator\Food\Egg">
+      <UniqueIdentifier>{c1f3d61c-0339-41ac-990e-f7693e07cdc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -158,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="As_Life_Simulator.cpp">
       <Filter>#Program_Folder\Life_Simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="Egg.cpp">
+      <Filter>#Program_Folder\Life_Simulator\Food\Egg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="As_Life_Simulator.h">
       <Filter>#Program_Folder\Life_Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="Egg.h">
+      <Filter>#Program_Folder\Life_Simulator\Food\Egg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

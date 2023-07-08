@@ -37,28 +37,16 @@ int main()
 {
     chrono::steady_clock::time_point start, end;
     chrono::duration<float> duration;
-
-    //AExample_Lesson_Io example_lesson_io;
-    //example_lesson_io.Output_Input_Binary();
-
     start = chrono::high_resolution_clock::now();
 
     SetConsoleCP(1251);
     setlocale(LC_ALL, "ru");
 
-    AsSaver saver;
-    saver.Init();
-
-    //As_Life_Simulator life_simulator;
-    //
-    //if (true)
-    //    life_simulator.Init();
-
-
     // Temp
     /*
-    //AHacker_Rank_Tasks hacker_rank_tasks;
-    //AsTutorial_Main tutorial_main;
+    As_Life_Simulator life_simulator;
+    AHacker_Rank_Tasks hacker_rank_tasks;
+    AsTutorial_Main tutorial_main;
     */
 
     // Project Saver
