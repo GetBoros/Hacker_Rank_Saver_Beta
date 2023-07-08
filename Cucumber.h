@@ -1,24 +1,24 @@
 #pragma once
 
 //-----------------------------------------------------------------------------------------------------------
-class AEgg
+class ACucumber
 {
 public:
-	~AEgg();
-	AEgg();
+	~ACucumber();
+	ACucumber();
 
 private:
+	const int Water;
 	const int Grams;
 	const int Energy_Kcal;
-	const int Energy_KJ;
 	const double Fat;
 	const double Protein;
+	const double Carbohydrates;
 
 	// Vitamins
-	const double Vitamin_A, Vitamin_D, Vitamin_B2, Vitamin_B12, Vitamin_Folate;
-	const double Vitamin_Biotin, Vitamin_Pantothenic_Acid, Vitamin_Choline;
+	const double Vitamin_K, Vitamin_C;
 
 	//Minerals
-	const double Phosphorus, Iodine, Selenium;
+	const double Beta_Carotene, Potassium, Magnesium;
 };
 //-----------------------------------------------------------------------------------------------------------
