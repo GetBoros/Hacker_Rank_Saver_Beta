@@ -102,6 +102,7 @@ int main()
     seconds = duration.count();
     min = seconds / 60;
     hour = min / 60;
+    seconds = (int)seconds % 60;
 
     cout << "Program life time: = ( Hours: " << (int)hour << " min: " << (int)min << " sec: " << seconds << endl;
 
