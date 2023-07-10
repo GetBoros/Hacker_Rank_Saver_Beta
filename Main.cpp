@@ -35,6 +35,7 @@ int CalculateMaxWorkshops(Available_Workshops* data)
 //------------------------------------------------------------------------------------------------------------------
 int main()
 {
+    double hour, min, seconds;
     chrono::steady_clock::time_point start, end;
     chrono::duration<float> duration;
     start = chrono::high_resolution_clock::now();
@@ -42,9 +43,17 @@ int main()
     SetConsoleCP(1251);
     setlocale(LC_ALL, "ru");
 
-    // Temp
+    AsSaver saver;
+    saver.Init();
+
+    // As_Life_Simulator
     /*
     As_Life_Simulator life_simulator;
+    life_simulator.Init();
+    */
+
+    // Temp
+    /*
     AHacker_Rank_Tasks hacker_rank_tasks;
     AsTutorial_Main tutorial_main;
     */
@@ -89,7 +98,12 @@ int main()
 
     end = chrono::high_resolution_clock::now();
     duration = end - start;
-    cout << "Program life time: = (" << duration.count() << " Seconds!!!)" << endl;
+
+    seconds = duration.count();
+    min = seconds / 60;
+    hour = min / 60;
+
+    cout << "Program life time: = ( Hours: " << (int)hour << " min: " << (int)min << " sec: " << seconds << endl;
 
     system("pause");
     return 0;

@@ -1,4 +1,5 @@
 #include "As_Life_Simulator.h"
+#include "Cucumber.h"
 
 // AsHuman
 AsHuman::~AsHuman()
@@ -86,6 +87,8 @@ As_Life_Simulator::As_Life_Simulator()
 //------------------------------------------------------------------------------------------------------------------
 void As_Life_Simulator::Init()
 {
+	ACucumber *cucumber = new ACucumber();
+
 	bool is_human_still_alive = true;
 	double spend_time = 0.15;  // 0.15 min | 1.15 hour and 15 min
 	AFood breakfast(124, 100, 20);  // need 1600 | Fats 70% 124g | Proteins 25% 100g | vegtales 5% 20g |

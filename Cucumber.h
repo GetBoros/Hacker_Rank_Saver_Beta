@@ -4,7 +4,7 @@
 class ACucumber
 {
 public:
-	~ACucumber();
+	virtual ~ACucumber();
 	ACucumber();
 
 private:
@@ -20,5 +20,6 @@ private:
 
 	//Minerals
 	const double Beta_Carotene, Potassium, Magnesium;
+
 };
 //-----------------------------------------------------------------------------------------------------------
