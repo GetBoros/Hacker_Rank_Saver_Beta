@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.4
+// AsSaver | Saver beta 0.2.4a
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.4";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.4a";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';

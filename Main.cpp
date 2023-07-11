@@ -104,7 +104,7 @@ int main()
     hour = min / 60;
     seconds = (int)seconds % 60;
 
-    cout << "Program life time: = ( Hours: " << (int)hour << " min: " << (int)min << " sec: " << seconds << endl;
+    cout << "Program life time: = (" << (int)hour << " Hours : " << (int)min << " mins : " << seconds << " seconds" << endl;
 
     system("pause");
     return 0;
