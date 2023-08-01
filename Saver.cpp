@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.4a
+// AsSaver | Saver beta 0.2.5
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.4a";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.5";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
@@ -102,6 +102,7 @@ void AsSaver::Add_Or_Erase_Data(bool is_erase)
 {
     bool is_paused;
     bool is_end;
+    bool is_seccuss;
     int anime_series;
     string anime_title;
     
@@ -116,12 +117,16 @@ void AsSaver::Add_Or_Erase_Data(bool is_erase)
     if (is_erase)
     {// delete from list
         if (is_paused)
-            Anime_Map_Paused.erase("|Pause|" + anime_title);
+            is_seccuss = Anime_Map_Paused.erase("|Pause|" + anime_title);
         else if (is_end)
-            Anime_Map_End_Watch.erase("|End|" + anime_title);
+            is_seccuss = Anime_Map_End_Watch.erase("|End|" + anime_title);
         else
-            Anime_Map.erase(anime_title);
-        cout << "Delet was seccuss! \n";
+            is_seccuss = Anime_Map.erase(anime_title);
+        
+        if (is_seccuss)
+            cout << "Delet was seccuss! \n";
+        else
+            cout << "Delet was Failed! \n";
     }
     else
     {// add to list
@@ -415,26 +420,37 @@ void AsSaver::Add_To_Specifer_Lists(bool &is_paused, bool &is_end, string &anime
         It_Anime_Map_Pause = Anime_Map_Paused.find(temp);
 
         if (It_Anime_Map_Pause != Anime_Map_Paused.end() )
-        {
-            Anime_Map_Paused.erase(Pause_Anime + anime_title_to_array);
-            Anime_Map.emplace(anime_title_to_array, anime_series);
-        }
+            Anime_Map_Paused.emplace(temp, anime_series);
         else
+        {
             Anime_Map_Paused.emplace(Pause_Anime + anime_title_to_array, anime_series);
+            Anime_Map.erase(anime_title_to_array);
+            Anime_Map_End_Watch.erase(End_Watch + anime_title_to_array);
+        }
 
     }
     else if (is_end)
     {
         Anime_Map_End_Watch.emplace(End_Watch + anime_title_to_array, anime_series);
         Anime_Map.erase(anime_title_to_array);
+        Anime_Map_Paused.erase(Pause_Anime + anime_title_to_array);
     }
     else
     {
         It_Anime_Map = Anime_Map.find(anime_title_to_array);  // try to find same name, if true change second key
+        It_Anime_Map_End_Watch = Anime_Map_End_Watch.find(End_Watch + anime_title_to_array);
+        It_Anime_Map_Pause = Anime_Map_Paused.find(Pause_Anime + anime_title_to_array);
+
         if (It_Anime_Map != Anime_Map.end() )
             Anime_Map[anime_title_to_array] = anime_series;
         else
             Anime_Map.emplace(anime_title_to_array, anime_series);
+
+        if (It_Anime_Map_End_Watch != Anime_Map_End_Watch.end() )
+            Anime_Map_End_Watch.erase(End_Watch + anime_title_to_array);
+
+        if (It_Anime_Map_Pause != Anime_Map_Paused.end() )
+            Anime_Map_Paused.erase(Pause_Anime + anime_title_to_array);
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------
