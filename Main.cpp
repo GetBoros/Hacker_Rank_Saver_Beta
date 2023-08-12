@@ -40,6 +40,14 @@ int main()
     chrono::duration<float> duration;
     start = chrono::high_resolution_clock::now();
 
+    // temp
+
+    char text[] = "Andrey";
+    text[0] = 'R';
+
+
+    // temp end
+
     SetConsoleCP(1251);
     setlocale(LC_ALL, "ru");
 

@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.5
+// AsSaver | Saver beta 0.2.5b
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.5";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.5b";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
@@ -98,7 +98,7 @@ void AsSaver::Choser()
         cout << Titles << endl;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Add_Or_Erase_Data(bool is_erase)
+void AsSaver::Add_Or_Erase_Data(const bool &is_erase)
 {
     bool is_paused;
     bool is_end;
@@ -253,7 +253,7 @@ ESave_Menu AsSaver::Proccesing_Reguest()
     return ESave_Menu::Exit;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Print_Out_Map(map<string, int>& anime_map)
+void AsSaver::Print_Out_Map(const map<string, int> &anime_map)
 {
     for (auto &it : anime_map)
     {
@@ -410,7 +410,7 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
     return anime_title_to_array;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Add_To_Specifer_Lists(bool &is_paused, bool &is_end, string &anime_title_to_array, int &anime_series)
+void AsSaver::Add_To_Specifer_Lists(const bool &is_paused, const bool &is_end, const string &anime_title_to_array, const int &anime_series)
 {
     string temp;
 
