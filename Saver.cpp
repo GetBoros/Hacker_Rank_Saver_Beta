@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.6
+// AsSaver | Saver beta 0.2.6a
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.6";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.6a";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
@@ -49,7 +49,8 @@ void AsSaver::Handler_Main_Menu()
     
     Need test to find bugs and how upgrade
 
-    when find digit dont need to add text
+    How fast complete : Extract_String_And_Int and Emplace_To_Specific_Array
+
     Anime Ratio, Time when was be addet.
     from version 0.3.0 maybe go to GUI
 
@@ -61,27 +62,26 @@ void AsSaver::Handler_Main_Menu()
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Choser()
 {
-    if (Save_Menu != ESave_Menu::Add_Data && Save_Menu != ESave_Menu::Delete)
+    if (Save_Menu != ESave_Menu::Add_Data && Save_Menu != ESave_Menu::Delete)  // Add or Erase multiply dat
         Save_Menu = Proccesing_Reguest();
 
     switch (Save_Menu)
-    {
+    {// Handle chose action
+
     case ESave_Menu::Handler:
-        Choser();  // Done
+        AsConfig::Throw();  // something wrong happens
         break;
 
     case ESave_Menu::Save:
-        //Save_Menu = ESave_Menu::Handler;
-        Save_To_File();  // Done
+        Save_To_File();  // Save Arrays to Files "MyFile"
         break;
 
     case ESave_Menu::Load:
-        Save_Menu = ESave_Menu::Handler;
-        Read_Lines_From_File();  // Done
+        Read_Lines_From_File();  // Read data from files
         break;
 
     case ESave_Menu::Add_Data:
-        Add_Or_Erase_Data(false);  // Done
+        Add_Or_Erase_Data(false);  // Add data to files
         break;
 
     case ESave_Menu::Delete:
@@ -89,15 +89,72 @@ void AsSaver::Choser()
         break;
 
     case ESave_Menu::Exit:
-        Save_To_File();  // Done
+        Save_To_File();  // Save data befor exit
         break;
 
     default:
-        AsConfig::Throw();
+        AsConfig::Throw();  // something wrong happens
     }
 
-    if (Save_Menu == ESave_Menu::Handler)
+    if (Save_Menu == ESave_Menu::Handler)  // if Handle print Titles to console
         cout << Titles << endl;
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+ESave_Menu AsSaver::Proccesing_Reguest()
+{
+    const int min_menu_option = static_cast<int>(ESave_Menu::Handler);
+    const int max_menu_option = static_cast<int>(ESave_Menu::Exit);
+
+    bool input_success = false;
+    int input_num = 0;
+    string temp;
+
+    AsConfig::Text_Print_To_Console("", false, "Press num: ");
+    do {
+
+        try
+        {
+            getline(cin, temp);
+            input_num = stoi(temp);
+
+            if (input_num > max_menu_option || input_num <= min_menu_option)
+            {
+                cout << input_num << Warning;
+                continue;
+            }
+
+            input_success = true;
+
+            return static_cast<ESave_Menu>(input_num);
+        }
+        catch (const exception &)
+        {// Dont need to fix exception can make problem
+            if (temp == "exit" || temp == "Exit")
+                return ESave_Menu::Exit;
+        }
+
+    } while (!input_success);
+
+    return ESave_Menu::Exit;
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+void AsSaver::Save_To_File()
+{
+    ofstream out_put_to_file;
+
+    out_put_to_file.open(AsConfig::Path);  // Directory and rewrite or add to file | "C:\\Program Files\\example.txt"
+
+    for (auto &it : Anime_Map)
+        out_put_to_file<< it.first << it.second << "\n";
+
+    for (auto &it : Anime_Map_End_Watch)
+        out_put_to_file<< it.first << it.second << "\n";
+
+    for (auto &it : Anime_Map_Paused)
+        out_put_to_file<< it.first << it.second << "\n";
+
+    cout << "Save success!\n";
+    out_put_to_file.close();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Add_Or_Erase_Data(const bool &is_erase)
@@ -141,56 +198,33 @@ void AsSaver::Add_Or_Erase_Data(const bool &is_erase)
     Save_To_File();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Save_To_File()
-{
-    ofstream out_put_to_file;
-
-    out_put_to_file.open(AsConfig::Path);  // Directory and rewrite or add to file | "C:\\Program Files\\example.txt"
-
-    for (auto &it : Anime_Map)
-        out_put_to_file<< it.first << it.second << "\n";
-
-    for (auto &it : Anime_Map_End_Watch)
-        out_put_to_file<< it.first << it.second << "\n";
-
-    for (auto &it : Anime_Map_Paused)
-        out_put_to_file<< it.first << it.second << "\n";
-
-    cout << "Save success!\n";
-    out_put_to_file.close();
-}
-//-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Read_Lines_From_File(const bool is_need_to_print)
 {
-    int max_string_size = 0;
-    ifstream fin;
+    int int_to_arr;
+    string string_to_arr;
     string text_from_file;
+    ifstream fin;
     ASlasher slasher_load("Lists");
 
     fin.open(AsConfig::Path);
 
-    while(getline(fin, text_from_file) )  // Temp change to text_from_file
+    while(getline(fin, text_from_file) )  // set line to text_from_file
     {
-        int int_to_arr = 0;
-        string string_to_arr = "";
+        int_to_arr = 0;
+        string_to_arr = "";
 
-        Refactoring_String(text_from_file, string_to_arr, int_to_arr);
-
-        if(string_to_arr.find(End_Watch) != string::npos)
-            Anime_Map_End_Watch.emplace(string_to_arr, int_to_arr);  // Add ended watching anime 
-        else 
-            if(string_to_arr.find(Pause_Anime) != string::npos)
-                Anime_Map_Paused.emplace(string_to_arr, int_to_arr);
-            else
-                Anime_Map.emplace(string_to_arr, int_to_arr);  // Add To Map List which sort by char
+        Extract_String_And_Int(text_from_file, string_to_arr, int_to_arr);
+        Emplace_To_Specific_Array(string_to_arr, int_to_arr);
     }
 
     if (is_need_to_print)
     {
         Print_Out_Map(Anime_Map);
         cout << "\t\t\t\t\tEnd List" << endl;
+
         Print_Out_Map(Anime_Map_End_Watch);
         cout << "\t\t\t\t\tPaused List" << endl;
+
         Print_Out_Map(Anime_Map_Paused);
     }
 
@@ -202,18 +236,18 @@ void AsSaver::Read_Lines_From_File(const bool is_need_to_print)
     fin.close();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Refactoring_String(string &text, string &to_array, int &int_to_array)
+void AsSaver::Extract_String_And_Int(const string &text, string &to_array, int &int_to_array)
 {
     to_array = text;  // use to_array_like_temp
-    size_t pos = to_array.rfind(Right_Mark);  // find mark position in string from end (index)
+    size_t pos = to_array.rfind(Right_Mark);  // find mark(index) position in string from end 
 
     if (pos != string::npos)  // if can`t find pos don`t do
     {
         to_array = text.substr(pos + 1);  // substr before mark and + 1 with mark
         int_to_array = stoi(to_array);
 
-        text.erase(pos + 1);  // erase after after mark + 1 with mark
         to_array = text;
+        to_array.erase(pos + 1);  // erase after after mark + 1 with mark
     }
 
     if (to_array.size() > Max_Array_Size)  // it`s for spaces between string and integers
@@ -255,34 +289,15 @@ void AsSaver::Refactoring_String(string &text, string &to_array, int &int_to_arr
     */
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-ESave_Menu AsSaver::Proccesing_Reguest()
+void AsSaver::Emplace_To_Specific_Array(const string &title, const int &series)
 {
-    bool input_success = false;
-    int input_num = 0;
-    string temp;
-
-    AsConfig::Text_Print_To_Console("", false, "Press num: ");
-    do {
-        try
-        {
-            getline(cin, temp);  // its trash code but for example its ok
-            input_num = stoi(temp);
-
-            if (input_num > 5 || input_num <= 0)
-            {
-                cout << input_num << Warning;
-                continue;
-            }
-            input_success = true;
-            return (ESave_Menu)input_num;
-        }
-        catch (const exception &)
-        {
-            if (temp == "exit" || temp == "Exit")
-                return ESave_Menu::Exit;
-        }
-    } while (!input_success);
-    return ESave_Menu::Exit;
+    if(title.find(End_Watch) != string::npos)
+        Anime_Map_End_Watch.emplace(title, series);  // Add ended watching anime 
+    else 
+        if(title.find(Pause_Anime) != string::npos)
+            Anime_Map_Paused.emplace(title, series);
+        else
+            Anime_Map.emplace(title, series);  // Add To Map List which sort by char
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Print_Out_Map(const map<string, int> &anime_map)
