@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.5b
+// AsSaver | Saver beta 0.2.6
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.5b";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.6";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
@@ -25,7 +25,7 @@ AsSaver::~AsSaver()
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::AsSaver()
-: Save_Menu(ESave_Menu::Handler), Counter_List(0), Max_Array_Size(0.0), Slasher(Saver_Version)
+: Save_Menu(ESave_Menu::Handler), Counter_List(0), Max_Array_Size(0.0), Temp(""), Slasher(Saver_Version)
 {
     setlocale(LC_ALL, "ru");
 }
@@ -41,13 +41,15 @@ void AsSaver::Init()
 void AsSaver::Handler_Main_Menu()
 {
     ASlasher slasher_load(Titles);
-    Check_If_File_Excist();
+
+    Check_If_File_Excist();  // if excist load all data from file
 
     // Tasks
     /*
     
     Need test to find bugs and how upgrade
 
+    when find digit dont need to add text
     Anime Ratio, Time when was be addet.
     from version 0.3.0 maybe go to GUI
 
@@ -167,7 +169,7 @@ void AsSaver::Read_Lines_From_File(const bool is_need_to_print)
 
     fin.open(AsConfig::Path);
 
-    while(getline(fin, text_from_file) )
+    while(getline(fin, text_from_file) )  // Temp change to text_from_file
     {
         int int_to_arr = 0;
         string string_to_arr = "";
@@ -200,27 +202,57 @@ void AsSaver::Read_Lines_From_File(const bool is_need_to_print)
     fin.close();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Refactoring_String(const string &text, string &to_array, int &int_to_array)
+void AsSaver::Refactoring_String(string &text, string &to_array, int &int_to_array)
 {
-    string::iterator it_str;
-    string temp;
+    to_array = text;  // use to_array_like_temp
+    size_t pos = to_array.rfind(Right_Mark);  // find mark position in string from end (index)
 
-    for(const char &c: text)
-        if (isdigit(c) )  // if true find num from line 
-            temp += c;
-        else  // else add char to string
-            to_array += c;
-
-    if (temp != "")
+    if (pos != string::npos)  // if can`t find pos don`t do
     {
-        int_to_array = stoi(temp);  // convert string to int,anime series from file
+        to_array = text.substr(pos + 1);  // substr before mark and + 1 with mark
+        int_to_array = stoi(to_array);
 
-        if (to_array.size() > Max_Array_Size)
-            Max_Array_Size = (double)text.size();
-
-        it_str = remove(begin(to_array), end(to_array), '\t');
-        to_array.erase(it_str, to_array.end() );
+        text.erase(pos + 1);  // erase after after mark + 1 with mark
+        to_array = text;
     }
+
+    if (to_array.size() > Max_Array_Size)  // it`s for spaces between string and integers
+        Max_Array_Size = (double)text.size();
+
+    // Temp example second
+    /* 
+    //string::iterator it = find(text.begin(), text.end(), Right_Mark);  // Find 
+    //text.erase(it + 1, text.end() );
+    //to_array = text;
+
+    //temp.erase(0, pos + 1);
+    //int_to_array = stoi(temp);  // convert string to int
+
+    //if (to_array.size() > Max_Array_Size)
+    //    Max_Array_Size = (double)text.size();
+
+     Temp example second end 
+     */
+
+    // Temp example first
+    /* 
+    //for(const char &c: text)  // For optimization find from end nums 
+    //    if (isdigit(c) )  // if true we find num from line 
+    //        temp += c;
+    //    else  // else add char to string
+    //        to_array += c;  // change? copy text to array end erase last nums
+
+    //if (temp != "")
+    //{
+    //    int_to_array = stoi(temp);  // convert string to int
+
+    //    if (to_array.size() > Max_Array_Size)
+    //        Max_Array_Size = (double)text.size();
+
+    //    it_str = remove(begin(to_array), end(to_array), '\t');
+    //    to_array.erase(it_str, to_array.end() );
+    //}
+    */
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 ESave_Menu AsSaver::Proccesing_Reguest()
@@ -280,6 +312,7 @@ void AsSaver::Check_If_File_Excist()
 
     if (file)
     {
+        // How fast we read_from_files in ms
         cout << "File Load Succes... \n" << endl;
         Read_Lines_From_File(false);
         file.close();

@@ -27,7 +27,7 @@ private:
 	void Add_Or_Erase_Data(const bool &is_erase);  // Add Data Beta
 	void Save_To_File();  // Save
 	void Read_Lines_From_File(const bool is_need_to_print = true);  // Load
-	void Refactoring_String(const string &text, string &to_array, int &int_to_array);
+	void Refactoring_String(string &text, string &to_array, int &int_to_array);
 	ESave_Menu Proccesing_Reguest();
 
 	void Print_Out_Map(const map<string, int> &anime_map);  // Show all Arrays in console
@@ -38,6 +38,7 @@ private:
 	ESave_Menu Save_Menu;  // Saver Menu
 	int Counter_List;
 	double Max_Array_Size;
+	string Temp;
 
 	ASlasher Slasher;  // Title for program
 
@@ -57,6 +58,9 @@ private:
 	static const char Left_Mark;
 	static const char Right_Mark;
 	static const string Seasons[];
-
 };
+/*
+	Main Branch		|| Init() -> Handler_Main_Menu() -> Choser();		||
+	Load Branch		|| Read_Lines_From_File() -> Refactoring_String();	|| Need to know how much ms loading
+*/
 //-------------------------------------------------------------------------------------------------------------------------------
