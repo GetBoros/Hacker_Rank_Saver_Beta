@@ -145,13 +145,13 @@ void AsSaver::Save_To_File()
     out_put_to_file.open(AsConfig::Path);  // Directory and rewrite or add to file | "C:\\Program Files\\example.txt"
 
     for (auto &it : Anime_Map)
-        out_put_to_file<< it.first << it.second << "\n";
+        out_put_to_file << it.first << it.second << "\n";
 
     for (auto &it : Anime_Map_End_Watch)
-        out_put_to_file<< it.first << it.second << "\n";
+        out_put_to_file << it.first << it.second << "\n";
 
     for (auto &it : Anime_Map_Paused)
-        out_put_to_file<< it.first << it.second << "\n";
+        out_put_to_file << it.first << it.second << "\n";
 
     cout << "Save success!\n";
     out_put_to_file.close();
@@ -168,13 +168,14 @@ void AsSaver::Add_Or_Erase_Data(const bool &is_erase)
     is_paused = false;
     is_end = false;
 
-    anime_title = Input_Handler(is_paused, is_end, anime_series);
+    anime_title = Handle_Input(is_paused, is_end, anime_series);  // Handle user Input to add or erase data from arrays
     
-    if (Save_Menu == ESave_Menu::Exit || anime_title == "«")
+    if (anime_title == "«")  // if input exit or back we return from func
         return;
 
     if (is_erase)
-    {// delete from list
+    {// delete from list after handle input
+
         if (is_paused)
             is_seccuss = Anime_Map_Paused.erase("|Pause|" + anime_title);
         else if (is_end)
@@ -188,9 +189,10 @@ void AsSaver::Add_Or_Erase_Data(const bool &is_erase)
             cout << "Delet was Failed! \n";
     }
     else
-    {// add to list
+    {// add to list after handle input
+
         if (anime_title != "«")
-            Add_To_Specifer_Lists(is_paused, is_end, anime_title, anime_series);
+            Add_To_Specific_List(is_paused, is_end, anime_title, anime_series);  // add to array after handle input
         else
             Save_Menu = ESave_Menu::Handler;
     }
@@ -302,22 +304,27 @@ void AsSaver::Emplace_To_Specific_Array(const string &title, const int &series)
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Print_Out_Map(const map<string, int> &anime_map)
 {
+    int spaces_to_place;
+    double tabs;
+    double spaces;
+    double str_indexes;
+    double spaces_in_tab;
+
+    const char symb = ' ';
+    spaces_in_tab = 8.0;
+    spaces = 1.0 / spaces_in_tab;
+
     for (auto &it : anime_map)
     {
-        double slasher;
-        double spaces;
-        const char s = ' ';
-        string add = "";
-        spaces = 1.0 / 8.0;
+        str_indexes = static_cast<double>(it.first.size() );  // how much indexes has string with + 1
+        tabs = (Max_Array_Size - str_indexes) / spaces_in_tab;  // how much tabs need add
+        spaces_to_place = static_cast<int>(tabs / spaces);  // how spaces need add
+        string str_with_spaces(spaces_to_place, symb);  // create str with spaces
 
-        slasher = (Max_Array_Size - it.first.size() ) / 8;
-        int result = (int)(slasher / spaces);
-        for (size_t i = 0; i < result; i++)
-            add += s;
-
-        cout << ++Counter_List << " " << ".\t" << it.first << add << " Series: " << it.second << endl;
+        cout << ++Counter_List << " .\t" << it.first << str_with_spaces << " Series: " << it.second << endl;  // print to consol
     }
-    cout << AsTools::Slash_String << "\n";
+
+    cout << AsTools::Slash_String << "\n";  // Show end of list
     Counter_List = 0;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -326,27 +333,30 @@ void AsSaver::Check_If_File_Excist()
     ifstream file(AsConfig::Path);
 
     if (file)
-    {
-        // How fast we read_from_files in ms
+    {// if file excist
+
+        // !!! How fast we read_from_files in ms
         cout << "File Load Succes... \n" << endl;
         Read_Lines_From_File(false);
         file.close();
     }
     else
-    {
+    {// if not create new file
+
         cout << "File don`t find. Try to create new file..." << endl;
 
         ofstream newFile(AsConfig::Path);
-        if (newFile.is_open()) {
+        if (newFile.is_open() )
+        {
             newFile.close();
             cout << "Create file was succes" << endl;
         }
         else
-            cout << "Не удалось создать файл." << endl;
+            cout << "Can`t create file" << endl;
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
+string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
 {// new task || Save string without << >> example «Верховный Бог III» 150
     int i;
     bool is_need_to_find;
@@ -365,56 +375,62 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
     else
         cout << "Enter Name and Series or \"Exit\" to Exit, \"back\" to Back in main menu.\n-";
 
-    while (is_need_to_find)
-    {// Input Handle
-        cin >> anime_title;
+    while (is_need_to_find)  // Handle Input from User
+    {
+        cin >> anime_title;  // wait input
 
-        if (counter == 0)
-        {// check only first time 
-            if ("Exit" == anime_title || anime_title == "exit")
-            {
-                Save_Menu = ESave_Menu::Exit;
+
+        if (counter == 0)  // check only once if we need to exit or back to menu after skip this section
+        {
+            
+            if (Check_Back_Or_Exit_Input(anime_title) )
                 break;
+
+            if (Check_End_Or_Paused_Input(anime_title, is_paused, is_end) )  // if input end or paused 
+                continue;
+            else
+            {
+                if(anime_title[0] == Left_Mark)  // if we have mark symb in index 0 reset adding mark and tell what it`s marked
+                {
+                    anime_title_to_array = "";
+                    is_already_marked = true;
+                }
             }
 
-            if ("Back" == anime_title || anime_title == "back")
-            {
-                Save_Menu = ESave_Menu::Handler;
-                break;
-            }
-
-            if ("Paused" == anime_title  || anime_title == "paused")
-            {
-                is_paused = true;
-                continue;
-            }
-            else if ("End" == anime_title || anime_title == "end")
-            {
-                is_end = true;
-                continue;
-            }
-            else if(anime_title[0] == Left_Mark)
-            {
-                anime_title_to_array = "";
-                is_already_marked = true;
-            }
+            //if ("Paused" == anime_title  || anime_title == "paused")
+            //{
+            //    is_paused = true;
+            //    counter++;
+            //    continue;
+            //}
+            //else if ("End" == anime_title || anime_title == "end")
+            //{
+            //    is_end = true;
+            //    counter++;
+            //    continue;
+            //}
+            //else if(anime_title[0] == Left_Mark)
+            //{
+            //    anime_title_to_array = "";
+            //    is_already_marked = true;
+            //}
         }
 
         try
-        {// try to get series(int data)
-            anime_series = stoi(anime_title);  // all logic in this try catch
+        {
+            anime_series = stoi(anime_title);  // if not int
             is_need_to_find = false;  // if false we find nums to end the cycle
             if (!is_already_marked)
                 anime_title_to_array = anime_title_to_array + Right_Mark;
 
         }
-        catch (const exception &)
-        {// formating data name 
-            if (counter != 0)
+        catch (const exception &)  // !!! Need refactoring
+        {
+            if (counter != 0)  // 
             {
-                for (i = 0; i < 9; i++)
+                for (i = 0; i < 9; i++)  // !!! Bad code we need to find season marked like example - IV 
                 {
-                    if (Seasons[i] == anime_title)  // after get current season exit from cycle
+                    if (Seasons[i] == anime_title)  // check simples - "IV" in string
                         break;
 
                     string test = anime_title_to_array + Space + Seasons[i] + Right_Mark;  // try to find prev seasons to erase that
@@ -454,11 +470,46 @@ string AsSaver::Input_Handler(bool &is_paused, bool &is_end, int &anime_series)
             else
                 anime_title_to_array = anime_title_to_array + Space + anime_title;
         }
+
     }
     return anime_title_to_array;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
-void AsSaver::Add_To_Specifer_Lists(const bool &is_paused, const bool &is_end, const string &anime_title_to_array, const int &anime_series)
+bool AsSaver::Check_Back_Or_Exit_Input(const string &anime_title)
+{
+    if ("Exit" == anime_title || anime_title == "exit")
+    {
+        Save_Menu = ESave_Menu::Exit;
+        return true;
+    }
+
+    if ("Back" == anime_title || anime_title == "back")
+    {
+        Save_Menu = ESave_Menu::Handler;
+        return true;
+    }
+
+    return false;
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+bool AsSaver::Check_End_Or_Paused_Input(const string& anime_title, bool &is_paused, bool &is_end)
+{
+
+    if ("Paused" == anime_title  || anime_title == "paused")
+    {
+        is_paused = true;
+        return true;
+    }
+    else if ("End" == anime_title || anime_title == "end")
+    {
+        is_end = true;
+        return true;
+    }
+
+    return false;
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+void AsSaver::Add_To_Specific_List(const bool &is_paused, const bool &is_end, const string &anime_title_to_array, const int &anime_series)
 {
     string temp;
 
