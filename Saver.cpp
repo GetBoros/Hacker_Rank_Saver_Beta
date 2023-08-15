@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.6a
+// AsSaver | Saver beta 0.2.7
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.6a";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.7";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
@@ -169,6 +169,11 @@ void AsSaver::Add_Or_Erase_Data(const bool &is_erase)
     is_end = false;
 
     anime_title = Handle_Input(is_paused, is_end, anime_series);  // Handle user Input to add or erase data from arrays
+
+    if (true)  // !!! maybe new functionality
+    {
+        Erase_Prev_Season(anime_title);  // if we add next seasons anime, delete previus
+    }
     
     if (anime_title == "«")  // if input exit or back we return from func
         return;
@@ -358,9 +363,9 @@ void AsSaver::Check_If_File_Excist()
 //-------------------------------------------------------------------------------------------------------------------------------
 string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
 {// new task || Save string without << >> example «Верховный Бог III» 150
-    int i;
     bool is_need_to_find;
     bool is_already_marked;
+    bool is_first_time;
     int counter;
     string anime_title_to_array;
     string anime_title;
@@ -369,6 +374,7 @@ string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
     is_already_marked = false;
     counter = 0;
     anime_title_to_array = Left_Mark;
+    is_first_time = true;
 
     if (Save_Menu == ESave_Menu::Delete)
         cout << "To Delete enter name and series or \"Exit\" to Exit, \"back\" to Back in main menu.\n-";
@@ -379,46 +385,27 @@ string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
     {
         cin >> anime_title;  // wait input
 
-
-        if (counter == 0)  // check only once if we need to exit or back to menu after skip this section
+        if (is_first_time)  // check only first time
         {
-            
             if (Check_Back_Or_Exit_Input(anime_title) )
                 break;
 
-            if (Check_End_Or_Paused_Input(anime_title, is_paused, is_end) )  // if input end or paused 
-                continue;
-            else
-            {
-                if(anime_title[0] == Left_Mark)  // if we have mark symb in index 0 reset adding mark and tell what it`s marked
-                {
-                    anime_title_to_array = "";
-                    is_already_marked = true;
-                }
-            }
+            is_first_time = false;
 
-            //if ("Paused" == anime_title  || anime_title == "paused")
-            //{
-            //    is_paused = true;
-            //    counter++;
-            //    continue;
-            //}
-            //else if ("End" == anime_title || anime_title == "end")
-            //{
-            //    is_end = true;
-            //    counter++;
-            //    continue;
-            //}
-            //else if(anime_title[0] == Left_Mark)
-            //{
-            //    anime_title_to_array = "";
-            //    is_already_marked = true;
-            //}
+            if (Check_End_Or_Paused_Input(anime_title, is_paused, is_end) )  // if input "end" or "paused"
+                continue;
+
+            if(anime_title[0] == Left_Mark)  // if we have mark symb in index 0 reset adding mark and tell what it`s marked
+            {
+                anime_title_to_array = "";
+                is_already_marked = true;
+            }
         }
 
         try
         {
             anime_series = stoi(anime_title);  // if not int
+
             is_need_to_find = false;  // if false we find nums to end the cycle
             if (!is_already_marked)
                 anime_title_to_array = anime_title_to_array + Right_Mark;
@@ -426,45 +413,6 @@ string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
         }
         catch (const exception &)  // !!! Need refactoring
         {
-            if (counter != 0)  // 
-            {
-                for (i = 0; i < 9; i++)  // !!! Bad code we need to find season marked like example - IV 
-                {
-                    if (Seasons[i] == anime_title)  // check simples - "IV" in string
-                        break;
-
-                    string test = anime_title_to_array + Space + Seasons[i] + Right_Mark;  // try to find prev seasons to erase that
-                    // TODO
-                    /*
-                    Need to find seasons in:
-                    all Anime_Map_End_Watch and Anime_Map_Paused 
-                    Thread thread_1 for Anime_Map_End_Watch;
-                    Thread thread_2 for Anime_Map_Paused 
-
-                    */
-
-                    if (i == 0)
-                    {
-                        It_Anime_Map = Anime_Map.find(test);
-                        It_Anime_Map_End_Watch = Anime_Map_End_Watch.find(End_Watch + anime_title_to_array + Right_Mark);
-                        It_Anime_Map_Pause = Anime_Map_Paused.find(Pause_Anime + anime_title_to_array + Right_Mark);
-                    }
-                    else
-                    {
-                        It_Anime_Map = Anime_Map.find(test);
-                        It_Anime_Map_End_Watch = Anime_Map_End_Watch.find(End_Watch + test);
-                        It_Anime_Map_Pause = Anime_Map_Paused.find(Pause_Anime + test);
-                    }
-                    if (It_Anime_Map != Anime_Map.end() )
-                        Anime_Map.erase(It_Anime_Map);
-
-                    if (It_Anime_Map_End_Watch != Anime_Map_End_Watch.end() )
-                        Anime_Map_End_Watch.erase(It_Anime_Map_End_Watch);
-
-                    if (It_Anime_Map_Pause != Anime_Map_Paused.end() )
-                        Anime_Map_Paused.erase(It_Anime_Map_Pause);
-                }
-            }
             if (counter++ == 0)
                 anime_title_to_array = anime_title_to_array + anime_title;
             else
@@ -473,6 +421,11 @@ string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
 
     }
     return anime_title_to_array;
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+void AsSaver::Erase_Prev_Season(const string &anime_title)
+{
+
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 bool AsSaver::Check_Back_Or_Exit_Input(const string &anime_title)

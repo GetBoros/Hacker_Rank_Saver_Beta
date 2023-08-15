@@ -34,6 +34,7 @@ private:
 	void Print_Out_Map(const map<string, int> &anime_map);  // Show all Arrays in console
 	void Check_If_File_Excist();  // if file doesn`t exsist creating it
 	string Handle_Input(bool &is_paused, bool &is_end, int &anime_series);  // Handl input from console
+	void Erase_Prev_Season(const string &anime_title);
 	bool Check_Back_Or_Exit_Input(const string &anime_title);
 	bool Check_End_Or_Paused_Input(const string& anime_title, bool &is_paused, bool &is_end);
 	void Add_To_Specific_List(const bool &is_paused, const bool &is_end, const string &anime_title_to_array, const int &anime_series);  // Add to arrays
