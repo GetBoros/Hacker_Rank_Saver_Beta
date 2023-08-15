@@ -1,15 +1,15 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.7
+// AsSaver | Saver beta 0.2.7a
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.7";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.7a";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
 const char AsSaver::Right_Mark = '»';
-const string AsSaver::Seasons[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
+const string AsSaver::Seasons[] = { "II", "III", "IV", "V", "VI", "VII", "VIII" };
 //-------------------------------------------------------------------------------------------------------------------------------
 AsSaver::~AsSaver()
 {
@@ -170,11 +170,6 @@ void AsSaver::Add_Or_Erase_Data(const bool &is_erase)
 
     anime_title = Handle_Input(is_paused, is_end, anime_series);  // Handle user Input to add or erase data from arrays
 
-    if (true)  // !!! maybe new functionality
-    {
-        Erase_Prev_Season(anime_title);  // if we add next seasons anime, delete previus
-    }
-    
     if (anime_title == "«")  // if input exit or back we return from func
         return;
 
@@ -411,12 +406,24 @@ string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
                 anime_title_to_array = anime_title_to_array + Right_Mark;
 
         }
-        catch (const exception &)  // !!! Need refactoring
+        catch (const exception &)  // !!! Myabe create func i don`t know now 
         {
             if (counter++ == 0)
                 anime_title_to_array = anime_title_to_array + anime_title;
             else
+            {
+                for (size_t i = 0; i < Seasons->size(); i++)  // compare with seasons and delet prev if excist
+                {
+                    if (anime_title == Seasons[i])
+                    {
+                        if (i != 0)
+                            Erase_Prev_Season(anime_title_to_array + Space + Seasons[i - 1] + Right_Mark);  // delet prev season
+                        else
+                            Erase_Prev_Season(anime_title_to_array + Right_Mark);  // delet prev season
+                    }
+                }
                 anime_title_to_array = anime_title_to_array + Space + anime_title;
+            }
         }
 
     }
@@ -425,7 +432,7 @@ string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Erase_Prev_Season(const string &anime_title)
 {
-
+    Anime_Map.erase(anime_title);
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 bool AsSaver::Check_Back_Or_Exit_Input(const string &anime_title)
