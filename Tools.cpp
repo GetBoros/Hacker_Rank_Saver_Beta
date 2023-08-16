@@ -3,18 +3,44 @@
 // AsSimple_Timer
 AsSimple_Timer::~AsSimple_Timer()
 {
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-    std::cout << "Duration = (" << duration.count() << " Seconds!!!)" << std::endl;
+    double hour, min, seconds;
+
+    End = std::chrono::high_resolution_clock::now();
+    Duration = End - Start;
+    seconds = Duration.count();
+
+    float ms = Duration.count() * 1000.0f;
+
+    min = seconds / 60;
+    hour = min / 60;
+
+    seconds = (int)seconds % 60;
+    min  = (int)min % 60;
+
+
+    if (Is_Life_Time)
+        std::cout << "Program life time: = (" << (int)hour << " Hours : " << min << " mins : " << seconds << " seconds)\n";
+    else
+        std::cout << "\t\t\t\t\t\t\t    ms: " << ms << std::endl;
 }
 //------------------------------------------------------------------------------------------------------------------
 AsSimple_Timer::AsSimple_Timer()
-: start(std::chrono::high_resolution_clock::now() ), duration(0.0)
+: Is_Life_Time(false), Start(std::chrono::high_resolution_clock::now() ), Duration(0.0)
 {
 
 }
 //------------------------------------------------------------------------------------------------------------------
+AsSimple_Timer::AsSimple_Timer(bool is_life_time)
+ : Is_Life_Time(is_life_time), Start(std::chrono::high_resolution_clock::now() ), Duration(0.0)
+{
 
+}
+//------------------------------------------------------------------------------------------------------------------
+double AsSimple_Timer::Get_Duration()
+{
+    return static_cast<double>(Duration.count() );
+}
+//------------------------------------------------------------------------------------------------------------------
 
 
 

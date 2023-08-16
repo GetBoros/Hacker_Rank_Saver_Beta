@@ -1,10 +1,10 @@
 ﻿#include "Saver.h"
 
-// AsSaver | Saver beta 0.2.7a
+// AsSaver | Saver beta 0.2.8
 const string AsSaver::Warning = " - is wrong input, need enter 1-5: or \"exit\" if you need Exit\n ";
 const string AsSaver::End_Watch = "|End|";
 const string AsSaver::Pause_Anime = "|Pause|";
-const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.7a";
+const string AsSaver::Saver_Version = "Welcome to Savers:\t\tbeta 0.2.8";
 const string AsSaver::Titles = "\nPress 1 to Save\nPress 2 to Load\nPress 3 to Add Data\nPress 4 to Erase Data\nPress 5 to exit\n";
 const char AsSaver::Space = ' ';
 const char AsSaver::Left_Mark = '«';
@@ -32,6 +32,8 @@ AsSaver::AsSaver()
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Init()
 {
+    AsSimple_Timer timer(true);
+
     HWND console = GetConsoleWindow();
     ShowWindow(console, SW_MAXIMIZE);  // Console Max Size
 
@@ -50,6 +52,8 @@ void AsSaver::Handler_Main_Menu()
     Need test to find bugs and how upgrade
 
     How fast complete : Extract_String_And_Int and Emplace_To_Specific_Array
+
+    Season delete from "End & Paused Array"
 
     Anime Ratio, Time when was be addet.
     from version 0.3.0 maybe go to GUI
@@ -140,6 +144,8 @@ ESave_Menu AsSaver::Proccesing_Reguest()
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsSaver::Save_To_File()
 {
+    AsSimple_Timer timer;
+
     ofstream out_put_to_file;
 
     out_put_to_file.open(AsConfig::Path);  // Directory and rewrite or add to file | "C:\\Program Files\\example.txt"
@@ -153,7 +159,7 @@ void AsSaver::Save_To_File()
     for (auto &it : Anime_Map_Paused)
         out_put_to_file << it.first << it.second << "\n";
 
-    cout << "Save success!\n";
+    cout << "Save File Success! ";
     out_put_to_file.close();
 }
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -321,7 +327,7 @@ void AsSaver::Print_Out_Map(const map<string, int> &anime_map)
         spaces_to_place = static_cast<int>(tabs / spaces);  // how spaces need add
         string str_with_spaces(spaces_to_place, symb);  // create str with spaces
 
-        cout << ++Counter_List << " .\t" << it.first << str_with_spaces << " Series: " << it.second << endl;  // print to consol
+        cout << ++Counter_List << ".\t" << it.first << str_with_spaces << " Series: " << it.second << endl;  // print to consol
     }
 
     cout << AsTools::Slash_String << "\n";  // Show end of list
@@ -334,10 +340,10 @@ void AsSaver::Check_If_File_Excist()
 
     if (file)
     {// if file excist
+        AsSimple_Timer timer;
 
-        // !!! How fast we read_from_files in ms
-        cout << "File Load Succes... \n" << endl;
         Read_Lines_From_File(false);
+        cout << "File Load Succes... ";
         file.close();
     }
     else

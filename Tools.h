@@ -34,10 +34,15 @@ class AsSimple_Timer
 public:
 	~AsSimple_Timer();
 	AsSimple_Timer();
+	AsSimple_Timer(bool is_life_time);
+
+	double Get_Duration();
 
 private:
-	std::chrono::steady_clock::time_point start, end;
-	std::chrono::duration<float> duration;
+	bool Is_Life_Time;
+
+	std::chrono::steady_clock::time_point Start, End;
+	std::chrono::duration<float> Duration;
 };
 //------------------------------------------------------------------------------------------------------------------
 class ASlasher

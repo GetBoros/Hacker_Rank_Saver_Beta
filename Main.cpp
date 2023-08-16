@@ -35,18 +35,10 @@ int CalculateMaxWorkshops(Available_Workshops* data)
 //------------------------------------------------------------------------------------------------------------------
 int main()
 {
-    double hour, min, seconds;
-    chrono::steady_clock::time_point start, end;
-    chrono::duration<float> duration;
-    start = chrono::high_resolution_clock::now();
-
     // temp
-
-    char text[] = "Andrey";
-    text[0] = 'R';
-
-
-    // temp end
+    /*
+    * 
+    */
 
     SetConsoleCP(1251);
     setlocale(LC_ALL, "ru");
@@ -103,18 +95,6 @@ int main()
     // Self Prod
     //hacker_rank_tasks.File_Example_Input_Output();
     */
-
-    end = chrono::high_resolution_clock::now();
-    duration = end - start;
-
-    seconds = duration.count();
-    min = seconds / 60;
-    hour = min / 60;
-
-    seconds = (int)seconds % 60;
-    min  = (int)min % 60;
-
-    cout << "Program life time: = (" << (int)hour << " Hours : " << min << " mins : " << seconds << " seconds" << endl;
 
     system("pause");
     return 0;
