@@ -136,6 +136,7 @@
     <ClCompile Include="Complex.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Cucumber.cpp" />
+    <ClCompile Include="PreCompileHeader.cpp" />
     <ClCompile Include="Egg.cpp" />
     <ClCompile Include="Example_Lessons.cpp" />
     <ClCompile Include="Example_Lesson_Io.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Complex.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Cucumber.h" />
+    <ClInclude Include="PreCompileHeader.h" />
     <ClInclude Include="Egg.h" />
     <ClInclude Include="Example_Lessons.h" />
     <ClInclude Include="Example_Lesson_Io.h" />

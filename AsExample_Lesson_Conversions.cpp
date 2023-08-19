@@ -65,7 +65,7 @@ AsExample_Lesson_Conversions::AsExample_Lesson_Conversions()
 void AsExample_Lesson_Conversions::Init()
 {
 
-	//Reinterpret_Cast_Conversions_Examples();
+	Reinterpret_Cast_Conversions_Examples();
 
 	//Const_Cast_Conversions_Examples();
 
@@ -216,6 +216,22 @@ void AsExample_Lesson_Conversions::Static_Cast_Conversions_Examples()
 	// 10. void* to any type
 	void* voidp = &e;
 	vector<int> *p = static_cast<vector<int>*>(voidp);
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+void AsExample_Lesson_Conversions::Dynamic_Cast_Conversions_Examples()
+{
+	APlayer *player = new APlayer();
+	AsEntity *maybe_enemy= new AEnemy();
+
+	AsEntity *maybe_player = player;
+
+	APlayer *second_player_1 = dynamic_cast<APlayer*>(maybe_enemy);
+	APlayer *second_player_2 = dynamic_cast<APlayer*>(maybe_player);
+
+	if (dynamic_cast<APlayer*>(maybe_enemy) )  // or second_player_1 || second_player_2
+	{
+
+	}
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 void AsExample_Lesson_Conversions::Reinterpret_Cast_Conversions_Examples()
@@ -440,5 +456,48 @@ void AsExample_Lesson_Conversions::Lambda_Few_Examples_How_To_Use()
 	for (int i{1}; i <= fib_max; ++i)
 		cout << nth_fibonacci3(i) << (i < fib_max ? ", " : "\n");
 #endif
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+// AsEntity
+AsEntity::~AsEntity()
+{
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+AsEntity::AsEntity()
+{
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+void AsEntity::Print_Name()
+{
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+// APlayer
+APlayer::~APlayer()
+{
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+APlayer::APlayer()
+{
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+// AEnemy
+AEnemy::~AEnemy()
+{
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+AEnemy::AEnemy()
+{
 }
 //-------------------------------------------------------------------------------------------------------------------------------

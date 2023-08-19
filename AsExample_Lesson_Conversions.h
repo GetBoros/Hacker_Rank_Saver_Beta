@@ -7,6 +7,29 @@ enum class E { ONE = 1, TWO, THREE };
 //-------------------------------------------------------------------------------------------------------------------------------
 enum EU { ONE = 1, TWO, THREE };
 //-------------------------------------------------------------------------------------------------------------------------------
+class AsEntity
+{
+public:
+	virtual ~AsEntity();
+	AsEntity();
+
+	virtual void Print_Name();
+};
+//-------------------------------------------------------------------------------------------------------------------------------
+class APlayer: public AsEntity
+{
+public:
+	~APlayer();
+	APlayer();
+};
+//-------------------------------------------------------------------------------------------------------------------------------
+class AEnemy: public AsEntity
+{
+public:
+	~AEnemy();
+	AEnemy();
+};
+//-------------------------------------------------------------------------------------------------------------------------------
 class AsType
 {
 public:
@@ -43,6 +66,7 @@ private:
 	void Conversions_Examples();
 	void Const_Cast_Conversions_Examples();
 	void Static_Cast_Conversions_Examples();
+	void Dynamic_Cast_Conversions_Examples();
 	void Reinterpret_Cast_Conversions_Examples();
 	void Character_Literal_Examples();
 

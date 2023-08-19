@@ -1,32 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <limits>
-#include <Windows.h>
-#include <sstream>
-#include <vector>
-#include <list>
-#include <forward_list>
-#include <array>
-#include <deque>
-#include <set>
-#include <map>
-#include <queue>
-#include <mutex>
-#include <thread>
-#include <chrono>
-#include <stack>
-#include <fstream>
-#include <functional>
-#include <algorithm>
-#include <numeric>
-#include <cstring>
-#include <utility> 
-#include <Windows.h>
-#include <string>
-#include <locale>
-#include <iomanip>
-#include <cassert>
+#include "PreCompileHeader.h"
 
 //------------------------------------------------------------------------------------------------------------------
 class AsSimple_Timer

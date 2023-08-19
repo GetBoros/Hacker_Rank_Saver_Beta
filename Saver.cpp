@@ -51,10 +51,6 @@ void AsSaver::Handler_Main_Menu()
     
     Need test to find bugs and how upgrade
 
-    How fast complete : Extract_String_And_Int and Emplace_To_Specific_Array
-
-    Season delete from "End & Paused Array"
-
     Anime Ratio, Time when was be addet.
     from version 0.3.0 maybe go to GUI
 
@@ -408,6 +404,9 @@ string AsSaver::Handle_Input(bool &is_paused, bool &is_end, int &anime_series)
             anime_series = stoi(anime_title);  // if not int
 
             is_need_to_find = false;  // if false we find nums to end the cycle
+
+            // can delete from prev array, if now paused delete from main array
+
             if (!is_already_marked)
                 anime_title_to_array = anime_title_to_array + Right_Mark;
 
@@ -484,7 +483,7 @@ void AsSaver::Add_To_Specific_List(const bool &is_paused, const bool &is_end, co
         temp = Pause_Anime + anime_title_to_array;
         It_Anime_Map_Pause = Anime_Map_Paused.find(temp);
 
-        if (It_Anime_Map_Pause != Anime_Map_Paused.end() )
+        if (It_Anime_Map_Pause != Anime_Map_Paused.end() )  // if already excist 
             Anime_Map_Paused.emplace(temp, anime_series);
         else
         {
