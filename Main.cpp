@@ -1,6 +1,37 @@
 ﻿#include "Main.h"
 
-//------------------------------------------------------------------------------------------------------------------
+
+ //------------------------------------------------------------------------------------------------------------------
+#define DEBUG 0;
+#if DEBUG
+static uint32_t Alloc_Count = 0;
+static uint32_t Alloc_Count_Bytes = 0;
+static uint32_t Dealloc_Count = 0;
+
+void *operator new(size_t size)
+{
+    Alloc_Count++;
+    Alloc_Count_Bytes += size;
+    cout << "Allocating " << Alloc_Count << " times\n";  // How much operator new allocate bytes
+    return reinterpret_cast<void*>(malloc(size) );
+}
+
+void operator delete(void* ptr) noexcept {
+    if (ptr) {
+        Dealloc_Count++;
+        cout << "Free Allocating " << Dealloc_Count << " bytes\n";  // How much operator delete free allocating memory
+        free(ptr);
+    }
+}
+#else
+
+#endif // DEBUG
+ //------------------------------------------------------------------------------------------------------------------
+ 
+ 
+ 
+ 
+ //------------------------------------------------------------------------------------------------------------------
 Available_Workshops *initialize(int *start_time, int *duration, int n)
 {
     auto aw = new Available_Workshops(n);
@@ -28,6 +59,8 @@ int CalculateMaxWorkshops(Available_Workshops* data)
     }
     return res;
 }//------------------------------------------------------------------------------------------------------------------
+ //------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -35,6 +68,7 @@ int CalculateMaxWorkshops(Available_Workshops* data)
 //------------------------------------------------------------------------------------------------------------------
 int main()
 {
+
     // temp
     /*
     * 
@@ -65,6 +99,11 @@ int main()
 
     AsSaver saver;
     saver.Init();
+
+    load 2-4 ms 38 rows, save 1-2 ms
+
+    Optimization change string
+
     */
 
     // Task
@@ -74,6 +113,7 @@ int main()
 
     // AsTutorial_Main
     /*
+    float random_num = AsSingleton::Float();  // Singleton example
     AsTutorial_Main tutorial_main;
     tutorial_main.Init();
     */

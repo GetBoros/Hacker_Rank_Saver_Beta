@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="AsExample_Lesson_Conversions.cpp" />
+    <ClCompile Include="AsSingleton.cpp" />
     <ClCompile Include="As_Life_Simulator.cpp" />
     <ClCompile Include="Bicycle.cpp" />
     <ClCompile Include="Complex.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="Action.h" />
     <ClInclude Include="AsExample_Lesson_Conversions.h" />
+    <ClInclude Include="AsSingleton.h" />
     <ClInclude Include="As_Life_Simulator.h" />
     <ClInclude Include="Bicycle.h" />
     <ClInclude Include="Complex.h" />

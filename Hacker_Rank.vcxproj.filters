@@ -100,6 +100,9 @@
     <Filter Include="#Program_Folder\Life_Simulator\Food\Cucumber">
       <UniqueIdentifier>{f46dd2d0-bf93-4d21-891d-e0ad95886086}</UniqueIdentifier>
     </Filter>
+    <Filter Include="#Tutorials\Singleton">
+      <UniqueIdentifier>{90e05875-05d8-4396-aa4b-2b5651229327}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -176,6 +179,9 @@
     </ClCompile>
     <ClCompile Include="PreCompileHeader.cpp">
       <Filter>#Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="AsSingleton.cpp">
+      <Filter>#Tutorials\Singleton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="PreCompileHeader.h">
       <Filter>#Source Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="AsSingleton.h">
+      <Filter>#Tutorials\Singleton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

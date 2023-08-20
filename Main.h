@@ -5,6 +5,7 @@
 #include "Tutorial_Main.h"
 #include "Saver.h"
 #include "As_Life_Simulator.h"
+#include "AsSingleton.h"
 
 typedef pair<int,int> p;
 typedef vector<p> Available_Workshops;

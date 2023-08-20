@@ -56,6 +56,33 @@ void AsSaver::Handler_Main_Menu()
 
     */
 
+    // Example
+    /*
+    
+    #if DEBUG
+
+    const char name[]  = "Andrey Sidorenko";  // 16 chars
+    unsigned char char_count = sizeof(name) - 1;  // get 16 chars, if (name - 1) get only name
+
+    char_count++;
+    char_count++;
+    char_count++;
+
+    char hello[] = "Hello_1_World";
+    hello[6]++;
+    for (int i = 0; i < sizeof(hello) - 1; i++)
+        cout << hello[i];
+
+
+    std::string_view first_name(name, 6);  // from begin next 6 chars
+    std::string_view second_name(name + 7, 9);  // from 7 char next 9 chars will be second name
+
+#else
+#endif // 0
+
+
+    */
+
     while (Save_Menu != ESave_Menu::Exit)
         Choser();
 }
