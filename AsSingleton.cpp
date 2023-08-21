@@ -1,6 +1,10 @@
 #include "AsSingleton.h"
 
 // AsSingleton
+AsSingleton::AsSingleton()
+{
+}
+//-------------------------------------------------------------------------------------------------------------------------------
 AsSingleton &AsSingleton::Get()
 {
 	static AsSingleton instance;

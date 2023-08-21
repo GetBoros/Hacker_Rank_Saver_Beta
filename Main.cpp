@@ -2,27 +2,41 @@
 
 
  //------------------------------------------------------------------------------------------------------------------
-#define DEBUG 0;
+#define DEBUG 0;  // Debaging Memmory usage
 #if DEBUG
-static uint32_t Alloc_Count = 0;
-static uint32_t Alloc_Count_Bytes = 0;
-static uint32_t Dealloc_Count = 0;
-
-void *operator new(size_t size)
+ //------------------------------------------------------------------------------------------------------------------
+struct AAllocation_Metrics
 {
-    Alloc_Count++;
-    Alloc_Count_Bytes += size;
-    cout << "Allocating " << Alloc_Count << " times\n";  // How much operator new allocate bytes
+    uint32_t Total_Allocated = 0;
+    uint32_t Total_Freed = 0;
+
+    uint32_t Current_Usage() { return Total_Allocated - Total_Freed; }
+};
+//------------------------------------------------------------------------------------------------------------------
+static AAllocation_Metrics Allocation_Metrics;  // instance metrics
+//------------------------------------------------------------------------------------------------------------------
+void *operator new(size_t size)  // overloading
+{
+    Allocation_Metrics.Total_Allocated += size;
+    //cout << "Allocating " << Alloc_Count << " times\n";  // How much operator new allocate bytes
     return reinterpret_cast<void*>(malloc(size) );
 }
-
-void operator delete(void* ptr) noexcept {
-    if (ptr) {
-        Dealloc_Count++;
-        cout << "Free Allocating " << Dealloc_Count << " bytes\n";  // How much operator delete free allocating memory
-        free(ptr);
+//------------------------------------------------------------------------------------------------------------------
+void operator delete(void *memory, size_t size) noexcept  // overloading
+{
+    if (memory)
+    {
+        Allocation_Metrics.Total_Freed += size;
+        //cout << "Free Allocating " << Dealloc_Count << " bytes\n";  // How much operator delete free allocating memory
+        free(memory);
     }
 }
+//------------------------------------------------------------------------------------------------------------------
+static void Print_Memory_Usage()
+{
+    cout << "Memory Usage: " << Allocation_Metrics.Current_Usage() << "bytes\n";
+}
+//------------------------------------------------------------------------------------------------------------------
 #else
 
 #endif // DEBUG
